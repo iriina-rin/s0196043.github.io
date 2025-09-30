@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Задание 1 — Ссылки и форма</title>
+  <meta name="description" content="Пример страницы с набором разных типов ссылок и формой (Задание 1)" />
+  <style>
+    body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height: 1.5; padding: 24px; max-width: 900px; margin: auto; color: #111; }
+    header h1 { font-size: 1.6rem; margin: 0 0 0.5rem; }
+    section { margin-bottom: 2rem; }
+    ul, ol { margin-left: 1.25rem; }
+    .link-list li { margin-bottom: 0.5rem; }
+    form { border: 1px solid #ddd; padding: 16px; border-radius: 8px; background: #fafafa; }
+    label { display: block; margin: 8px 0 4px; font-weight: 600; }
+    input[type="text"], input[type="tel"], input[type="email"], input[type="date"], textarea, select {
+      width: 100%; max-width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;
+    }
+    .row { display:flex; gap: 12px; flex-wrap:wrap; }
+    .col { flex: 1 1 240px; min-width: 200px; }
+    fieldset { border: 1px solid #ddd; padding: 12px; border-radius: 6px; margin: 8px 0; }
+    legend { font-weight: 700; }
+    .small { font-size: 0.9rem; color:#444; }
+    .submit { margin-top: 12px; padding: 10px 14px; border-radius:6px; border: none; cursor:pointer; background:#0b7dda; color:white; font-weight:700; }
+    .note { font-size:0.9rem; color:#666; margin-top:6px; }
+    nav a { margin-right: 8px; }
+    .map-img { max-width: 400px; display:block; margin-top:8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Демонстрация типов ссылок и форма — Задание 1</h1>
+    <p class="small">Реализовано согласно условию задания (список ссылок и форма).</p>
+  </header>
+
+  <section>
+    <h2>Маркированный список гиперссылок</h2>
+    <ul class="link-list">
+      <li><a href="http://kubsu.ru/">1) Абсолютная (http) — КубГУ</a></li>
+      <li><a href="https://kubsu.ru/">2) Абсолютная (https) — КубГУ</a></li>
+      <li><a href="https://kubsu.ru/"><img src="https://via.placeholder.com/120x40?text=kubsu.ru" alt="kubsu.ru логотип"> 3) Ссылка-изображение</a></li>
+      <li><a href="/internal.html">4) Сокращённая ссылка на внутреннюю страницу</a></li>
+      <li><a href="/">5) Сокращённая ссылка на главную</a></li>
+      <li><a href="#contact">6) Ссылка на фрагмент текущей страницы</a></li>
+      <li><a href="page.html?param1=one&amp;param2=two&amp;param3=three">7) Ссылка с тремя параметрами</a></li>
+      <li><a href="product.html?id=123">8) Ссылка с параметром id</a></li>
+      <li><a href="./about.html">9) Относительная (текущий каталог)</a></li>
+      <li><a href="about/team.html">10) Относительная (подкаталог)</a></li>
+      <li><a href="../up-one-level.html">11) Относительная (уровень выше)</a></li>
+      <li><a href="../../up-two-levels.html">12) Относительная (два уровня выше)</a></li>
+      <li><p>13) Контекстная ссылка: см. <a href="https://developer.mozilla.org/ru/">MDN</a></p></li>
+      <li><a href="https://ru.wikipedia.org/wiki/HTML#История" target="_blank">14) Ссылка на фрагмент стороннего сайта</a></li>
+      <li>
+        15) Картинка с map:  
+        <img src="https://via.placeholder.com/400x150?text=Map+Demo" usemap="#map1" class="map-img" alt="Карта зон">
+        <map name="map1">
+          <area shape="rect" coords="10,10,140,90" href="https://kubsu.ru/" alt="Kubsu">
+          <area shape="circle" coords="300,60,48" href="https://developer.mozilla.org/" alt="MDN">
+        </map>
+      </li>
+      <li><a href="">16) Ссылка с пустым href</a></li>
+      <li><a>17) Ссылка без href</a></li>
+      <li><a href="https://example.com/no-follow" rel="nofollow">18) Ссылка nofollow</a></li>
+      <li><a href="https://example.com/no-index" rel="noindex">19) Ссылка с запретом индексации (демо)</a></li>
+      <li>
+        20) Нумерованный список:
+        <ol>
+          <li><a href="https://example.com/one" title="Первая">example.com/one</a></li>
+          <li><a href="https://example.com/two" title="Вторая">example.com/two</a></li>
+          <li><a href="https://example.com/three" title="Третья">example.com/three</a></li>
+        </ol>
+      </li>
+      <li><a href="ftp://user:password@ftp.example.com/path/to/file.zip">21) FTP с авторизацией</a></li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2>Форма</h2>
+    <form action="#" method="post" novalidate>
+      <label for="fullname">ФИО</label>
+      <input id="fullname" name="fullname" type="text" placeholder="Иванов Иван Иванович" required>
+
+      <div class="row">
+        <div class="col">
+          <label for="phone">Телефон</label>
+          <input id="phone" name="phone" type="tel" placeholder="+7 (___) ___-__-__">
+        </div>
+        <div class="col">
+          <label for="email">E-mail</label>
+          <input id="email" name="email" type="email" placeholder="example@mail.com">
+        </div>
+      </div>
+
+      <label for="birthdate">Дата рождения</label>
+      <input id="birthdate" name="birthdate" type="date">
+
+      <fieldset>
+        <legend>Пол</legend>
+        <label><input type="radio" name="gender" value="male"> Мужской</label>
+        <label><input type="radio" name="gender" value="female"> Женский</label>
+        <label><input type="radio" name="gender" value="other"> Другой</label>
+      </fieldset>
+
+      <label for="langs">Любимый язык программирования</label>
+      <select id="langs" name="langs[]" multiple size="6">
+        <option value="pascal">Pascal</option>
+        <option value="c">C</option>
+        <option value="cpp">C++</option>
+        <option value="javascript">JavaScript</option>
+        <option value="php">PHP</option>
+        <option value="python">Python</option>
+        <option value="java">Java</option>
+        <option value="haskell">Haskel</option>
+        <option value="clojure">Clojure</option>
+        <option value="prolog">Prolog</option>
+        <option value="scala">Scala</option>
+      </select>
+
+      <label for="bio">Биография</label>
+      <textarea id="bio" name="bio" rows="6"></textarea>
+
+      <label><input type="checkbox" id="contract" name="contract"> С контрактом ознакомлен</label>
+
+      <button type="submit" class="submit">Сохранить</button>
+    </form>
+  </section>
+
+  <footer>
+    <p class="small">
+      Готовая страница реализует пункты 1–21 (ссылки) и форму.  
+      Проверить можно через <a href="https://validator.w3.org/">W3C Validator</a>.
+    </p>
+
+    <h3>Контакты</h3>
+    <p>
+      📧 <a href="mailto:irun4ikug@gmail.com">irun4ikug@gmail.com</a><br>
+      📱 <a href="tel:+789002558833">+7 900 255-88-33</a><br>
+      🌐 <a href="https://vk.com/kuz.ira2" target="_blank" rel="noopener noreferrer">Мой VK</a>
+    </p>
+  </footer>
+</body>
+</html>
