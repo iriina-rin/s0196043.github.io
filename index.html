@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Задание 1 — Ссылки и форма</title>
 
-  <!-- Простое оформление страницы -->
   <style>
     body {
       font-family: "Segoe UI", Arial, sans-serif;
@@ -22,18 +21,14 @@
       text-align: center;
     }
 
-    ul, ol {
-      margin-left: 20px;
-    }
+    ul, ol { margin-left: 20px; }
 
     a {
       color: #0b5bd3;
       text-decoration: none;
     }
 
-    a:hover {
-      text-decoration: underline;
-    }
+    a:hover { text-decoration: underline; }
 
     form {
       border: 1px solid #ccc;
@@ -43,11 +38,7 @@
       box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
 
-    label {
-      display: block;
-      margin: 10px 0 4px;
-      font-weight: 600;
-    }
+    label { display: block; margin: 10px 0 4px; font-weight: 600; }
 
     input, textarea, select {
       width: 100%;
@@ -65,10 +56,7 @@
       border-radius: 5px;
     }
 
-    legend {
-      font-weight: bold;
-      color: #0b5bd3;
-    }
+    legend { font-weight: bold; color: #0b5bd3; }
 
     button {
       padding: 10px 20px;
@@ -80,9 +68,7 @@
       cursor: pointer;
     }
 
-    button:hover {
-      background: #0949b8;
-    }
+    button:hover { background: #0949b8; }
 
     .map-img {
       max-width: 400px;
@@ -96,10 +82,8 @@
 
 <body>
 
-  <!-- Заголовок страницы -->
   <h1>Ссылки и форма</h1>
 
-  <!-- Список ссылок -->
   <ul>
     <!-- 1. Абсолютная ссылка (http) -->
     <li><a href="http://kubsu.ru/">Абсолютная ссылка (http) — сайт КубГУ</a></li>
@@ -111,7 +95,8 @@
     <li>
       <!-- Ссылка в виде картинки -->
       <a href="https://kubsu.ru/">
-        <img src="https://www.kubsu.ru/sites/default/files/logo_0.png" alt="Логотип КубГУ" width="180">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/KubSU_logo.png/200px-KubSU_logo.png"
+             alt="Логотип КубГУ" width="180">
       </a>
     </li>
 
@@ -150,7 +135,7 @@
     <!-- 14. Ссылка на фрагмент стороннего сайта -->
     <li><a href="https://ru.wikipedia.org/wiki/HTML#История">Ссылка на фрагмент стороннего сайта (Wikipedia)</a></li>
 
-    <!-- 15. Картинка с областями (map) -->
+    <!-- 15. Картинка с областями -->
     <li>
       <p>Карта изображения с кликабельными областями:</p>
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Smiley.svg/300px-Smiley.svg.png"
@@ -189,30 +174,24 @@
   <!-- Форма -->
   <h2 id="form">Форма</h2>
   <form action="#" method="post">
-    <!-- Поле ФИО -->
     <label for="fio">ФИО</label>
     <input type="text" id="fio" name="fio" placeholder="Введите ваше ФИО">
 
-    <!-- Телефон -->
     <label for="phone">Телефон</label>
     <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__">
 
-    <!-- Email -->
     <label for="email">E-mail</label>
     <input type="email" id="email" name="email" placeholder="example@mail.com">
 
-    <!-- Дата рождения -->
     <label for="birth">Дата рождения</label>
     <input type="date" id="birth" name="birth">
 
-    <!-- Пол -->
     <fieldset>
       <legend>Пол</legend>
       <label><input type="radio" name="gender" value="male"> Мужской</label>
       <label><input type="radio" name="gender" value="female"> Женский</label>
     </fieldset>
 
-    <!-- Любимый язык программирования -->
     <label for="langs">Любимый язык программирования</label>
     <select id="langs" name="langs[]" multiple>
       <option>Pascal</option>
@@ -226,14 +205,11 @@
       <option>Scala</option>
     </select>
 
-    <!-- Биография -->
     <label for="bio">Биография</label>
     <textarea id="bio" name="bio" rows="5" placeholder="Напишите немного о себе"></textarea>
 
-    <!-- Чекбокс -->
     <label><input type="checkbox" name="contract"> С контрактом ознакомлен</label>
 
-    <!-- Кнопка -->
     <button type="submit">Сохранить</button>
   </form>
 
