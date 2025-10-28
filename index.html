@@ -5,81 +5,162 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Задание 1</title>
   <style>
-    body { font-family: Arial, sans-serif; line-height: 1.5; max-width: 900px; margin: auto; padding: 20px; }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
     ul, ol { margin-left: 20px; }
-    form { border: 1px solid #ccc; padding: 15px; border-radius: 8px; background: #f9f9f9; }
+    form {
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 8px;
+      background: #f9f9f9;
+    }
     label { display: block; margin: 8px 0 4px; }
-    input, textarea, select { width: 100%; max-width: 100%; padding: 6px; margin-bottom: 10px; }
-    .submit { padding: 8px 14px; border: none; border-radius: 6px; background: #0b7dda; color: #fff; cursor: pointer; }
+    input, textarea, select {
+      width: 100%;
+      max-width: 100%;
+      padding: 6px;
+      margin-bottom: 10px;
+    }
     fieldset { margin-bottom: 10px; }
     legend { font-weight: bold; }
+    button {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      background: #0b7dda;
+      color: #fff;
+      cursor: pointer;
+    }
     .map-img { max-width: 400px; display: block; margin-top: 10px; }
   </style>
 </head>
 <body>
-  <h1>Ссылки</h1>
+
+  <!-- Заголовок страницы -->
+  <h1>Ссылки и форма (задание 1)</h1>
+
+  <!-- 1–21 пункты ссылок -->
   <ul>
+    <!-- 1. Абсолютная ссылка (http) -->
     <li><a href="http://kubsu.ru/">Абсолютная ссылка (http)</a></li>
+
+    <!-- 2. Абсолютная ссылка (https) -->
     <li><a href="https://kubsu.ru/">Абсолютная ссылка (https)</a></li>
+
+    <!-- 3. Ссылка-изображение -->
     <li>
+      <!-- Ссылка в виде картинки -->
       <a href="https://kubsu.ru/">
-        <img src="https://www.kubsu.ru/sites/default/files/logo_0.png" alt="КубГУ">
+        <img src="https://www.kubsu.ru/sites/default/files/logo_0.png" alt="Логотип КубГУ">
       </a>
     </li>
-    <li><a href="index.html">Сокращённая ссылка на внутреннюю страницу</a></li>
-    <li><a href="index.html">Сокращённая ссылка на главную страницу</a></li>
-    <li><a href="#form">Ссылка на фрагмент текущей страницы</a></li>
-    <li><a href="index.html?x=1&y=2&z=3">Ссылка с тремя параметрами</a></li>
+
+    <!-- 4. Сокращённая ссылка на внутреннюю страницу -->
+    <li><a href="about.html">Сокращённая ссылка на внутреннюю страницу</a></li>
+
+    <!-- 5. Сокращённая ссылка на главную страницу -->
+    <li><a href="/">Сокращённая ссылка на главную страницу</a></li>
+
+    <!-- 6. Ссылка на фрагмент текущей страницы -->
+    <li><a href="#form">Ссылка на фрагмент текущей страницы (к форме)</a></li>
+
+    <!-- 7. Ссылка с тремя параметрами -->
+    <li><a href="index.html?param1=one&param2=two&param3=three">Ссылка с тремя параметрами</a></li>
+
+    <!-- 8. Ссылка с параметром id -->
     <li><a href="index.html?id=123">Ссылка с параметром id</a></li>
-    <li><a href="index.html">Относительная ссылка на страницу в текущем каталоге</a></li>
-    <li><a href="index.html">Относительная ссылка на страницу в каталоге about</a></li>
-    <li><a href="index.html">Относительная ссылка на страницу уровнем выше</a></li>
-    <li><a href="index.html">Относительная ссылка на страницу двумя уровнями выше</a></li>
-    <li>Контекстная <a href="https://developer.mozilla.org/ru/">ссылка</a> в тексте абзаца</li>
-    <li><a href="https://ru.wikipedia.org/wiki/HTML#История">Ссылка на фрагмент стороннего сайта</a></li>
+
+    <!-- 9. Относительная ссылка на страницу в текущем каталоге -->
+    <li><a href="./page.html">Относительная ссылка (текущий каталог)</a></li>
+
+    <!-- 10. Относительная ссылка на страницу в каталоге about -->
+    <li><a href="about/info.html">Относительная ссылка (каталог about)</a></li>
+
+    <!-- 11. Относительная ссылка на страницу уровнем выше -->
+    <li><a href="../index.html">Относительная ссылка (уровень выше)</a></li>
+
+    <!-- 12. Относительная ссылка на страницу двумя уровнями выше -->
+    <li><a href="../../index.html">Относительная ссылка (два уровня выше)</a></li>
+
+    <!-- 13. Контекстная ссылка -->
     <li>
-      Ссылка из областей картинки:
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Smiley.svg/300px-Smiley.svg.png" 
-           usemap="#map1" class="map-img" alt="Карта">
+      <!-- Ссылка встроена в текст -->
+      <p>На сайте <a href="https://developer.mozilla.org/ru/">MDN Web Docs</a> можно прочитать о веб-технологиях.</p>
+    </li>
+
+    <!-- 14. Ссылка на фрагмент страницы стороннего сайта -->
+    <li><a href="https://ru.wikipedia.org/wiki/HTML#История">Ссылка на фрагмент стороннего сайта (Wikipedia)</a></li>
+
+    <!-- 15. Ссылка из областей картинки -->
+    <li>
+      <p>Карта изображений с разными областями:</p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Smiley.svg/300px-Smiley.svg.png"
+           usemap="#map1" alt="Карта ссылок" class="map-img">
       <map name="map1">
-        <area shape="rect" coords="10,10,140,140" href="https://kubsu.ru/" alt="kubsu">
-        <area shape="circle" coords="220,75,50" href="https://developer.mozilla.org/" alt="mdn">
+        <!-- Прямоугольная область ведёт на kubsu.ru -->
+        <area shape="rect" coords="10,10,140,140" href="https://kubsu.ru/" alt="KubSU">
+        <!-- Круглая область ведёт на MDN -->
+        <area shape="circle" coords="220,75,50" href="https://developer.mozilla.org/" alt="MDN">
       </map>
     </li>
+
+    <!-- 16. Ссылка с пустым href -->
     <li><a href="">Ссылка с пустым href</a></li>
+
+    <!-- 17. Ссылка без href -->
     <li><a>Ссылка без href</a></li>
-    <li><a href="https://example.com" rel="nofollow">Ссылка nofollow</a></li>
-    <li><a href="https://example.com" rel="noindex">Ссылка с запретом индексации</a></li>
+
+    <!-- 18. Ссылка с nofollow -->
+    <li><a href="https://example.com" rel="nofollow">Ссылка с rel="nofollow"</a></li>
+
+    <!-- 19. Ссылка с noindex -->
+    <li><a href="https://example.com" rel="noindex">Ссылка с rel="noindex"</a></li>
+
+    <!-- 20. Нумерованный список ссылок с title -->
     <li>
       <ol>
-        <li><a href="https://example.com/one" title="Первая">Первая</a></li>
-        <li><a href="https://example.com/two" title="Вторая">Вторая</a></li>
-        <li><a href="https://example.com/three" title="Третья">Третья</a></li>
+        <li><a href="https://example.com/one" title="Первая ссылка">Первая ссылка</a></li>
+        <li><a href="https://example.com/two" title="Вторая ссылка">Вторая ссылка</a></li>
+        <li><a href="https://example.com/three" title="Третья ссылка">Третья ссылка</a></li>
       </ol>
     </li>
+
+    <!-- 21. FTP-ссылка с авторизацией -->
     <li><a href="ftp://user:password@ftp.example.com/file.zip">FTP-ссылка с авторизацией</a></li>
   </ul>
 
-  <h1 id="form">Форма</h1>
+  <!-- Форма -->
+  <h2 id="form">Форма</h2>
   <form action="#" method="post">
+    <!-- Поле ФИО -->
     <label for="fio">ФИО</label>
-    <input id="fio" name="fio" type="text">
+    <input type="text" id="fio" name="fio">
 
+    <!-- Телефон -->
     <label for="phone">Телефон</label>
-    <input id="phone" name="phone" type="tel">
+    <input type="tel" id="phone" name="phone">
 
+    <!-- E-mail -->
     <label for="email">E-mail</label>
-    <input id="email" name="email" type="email">
+    <input type="email" id="email" name="email">
 
+    <!-- Дата рождения -->
     <label for="birth">Дата рождения</label>
-    <input id="birth" name="birth" type="date">
+    <input type="date" id="birth" name="birth">
 
+    <!-- Пол -->
     <fieldset>
       <legend>Пол</legend>
       <label><input type="radio" name="gender" value="male"> Мужской</label>
       <label><input type="radio" name="gender" value="female"> Женский</label>
     </fieldset>
 
+    <!-- Любимый язык программирования -->
     <label for="langs">Любимый язык программирования</label>
     <select id="langs" name="langs[]" multiple>
       <option>Pascal</option>
@@ -95,13 +176,17 @@
       <option>Scala</option>
     </select>
 
+    <!-- Биография -->
     <label for="bio">Биография</label>
-    <textarea id="bio" name="bio"></textarea>
+    <textarea id="bio" name="bio" rows="5"></textarea>
 
+    <!-- С контрактом ознакомлен -->
     <label><input type="checkbox" name="contract"> С контрактом ознакомлен</label>
 
-    <button type="submit" class="submit">Сохранить</button>
+    <!-- Кнопка -->
+    <button type="submit">Сохранить</button>
   </form>
+
 </body>
 </html>
 
