@@ -1,217 +1,209 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Задание 1 — Ссылки и форма</title>
+  <title>Кузнецова Ирина Евгеньевна</title>
 
-  <style>
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      line-height: 1.6;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 30px;
-      background: #f4f6fa;
-      color: #222;
-    }
-
-    h1, h2 {
-      color: #0b5bd3;
-      text-align: center;
-    }
-
-    ul, ol { margin-left: 20px; }
-
-    a {
-      color: #0b5bd3;
-      text-decoration: none;
-    }
-
-    a:hover { text-decoration: underline; }
-
-    form {
-      border: 1px solid #ccc;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    }
-
-    label { display: block; margin: 10px 0 4px; font-weight: 600; }
-
-    input, textarea, select {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #bbb;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-
-    fieldset {
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      padding: 10px;
-      border-radius: 5px;
-    }
-
-    legend { font-weight: bold; color: #0b5bd3; }
-
-    button {
-      padding: 10px 20px;
-      background: #0b5bd3;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    button:hover { background: #0949b8; }
-
-    .map-img {
-      max-width: 400px;
-      display: block;
-      margin-top: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-  </style>
+  <!-- Подключение Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="basecss.css" type="text/css"/>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </head>
 
 <body>
+  <header class="header-site">
+    <div class="header-top highlighted">
+      <div class="contain">
+        <div class="header-row">
+          <div class="img-thumbnail photo1"><img src="ava.jpg" alt="Моё фото"></div>
+          <div class="fs-2">Задание 5</div>
+          <div class="menu-main">
+            <nav>
+              <ul>
+                <li><a href="/index.html">Главная</a></li>
+                <li><a href="/index.html">Информация</a></li>
+                <li><a href="mailto:irun4ikug@gmail.com">Моя почта</a></li>
+                <li><a href="https://vk.com/kuz.ira2">Мой ВК</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <h1>Ссылки и форма</h1>
+    <nav class="menu">
+      <ul>
+        <li><a href="/index.html">Главная</a></li>
+        <li><a href="/index.html">Информация</a></li>
+        <li><a href="mailto:irun4ikug@gmail.com">Моя почта</a></li>
+        <li><a href="https://vk.com/kuz.ira2">Мой ВК</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <ul>
-    <!-- 1. Абсолютная ссылка (http) -->
-    <li><a href="http://kubsu.ru/">Абсолютная ссылка (http) — сайт КубГУ</a></li>
+  <div class="container-main">
+    <div class="highlighted content item1">
+      <div class="fs-3">Гиперссылки</div>
 
-    <!-- 2. Абсолютная ссылка (https) -->
-    <li><a href="https://kubsu.ru/">Абсолютная ссылка (https) — сайт КубГУ</a></li>
+      <ul>
+        <li><a href="http://kubsu.ru">Абсолютная гиперссылка на главную страницу kubsu.ru</a></li>
+        <li><a href="https://kubsu.ru">Абсолютная гиперссылка на сайт kubsu.ru по протоколу HTTPS</a></li>
 
-    <!-- 3. Ссылка-изображение -->
-    <li>
-      <!-- Ссылка в виде картинки -->
-      <a href="https://kubsu.ru/">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/KubSU_logo.png/200px-KubSU_logo.png"
-             alt="Логотип КубГУ" width="180">
-      </a>
-    </li>
+        <li>
+          <a href="https://kubsu.ru">
+            <img class="img-thumbnail"
+                 src="kubik.jpg"
+                 alt="Ссылка-изображение"
+                 id="a1"
+                 width="300"
+                 height="200">
+          </a>
+        </li>
 
-    <!-- 4. Сокращённая ссылка на внутреннюю страницу -->
-    <li><a href="about.html">Сокращённая ссылка на внутреннюю страницу</a></li>
+        <li><a href="/index.html">Сокращённая ссылка на внутреннюю страницу</a></li>
+        <li><a href="/">Сокращённая ссылка на главную страницу</a></li>
+        <li><a href="#a1">Ссылка на фрагмент текущей страницы</a></li>
+        <li><a href="/index?size=m&color=black&page=1">Ссылка с тремя параметрами в URL</a></li>
+        <li><a href="/index?id=123">Ссылка с параметром id в URL</a></li>
+        <li><a href="./index.html">Относительная ссылка (текущий каталог)</a></li>
+        <li><a href="/about/index.html">Относительная ссылка (каталог about)</a></li>
+        <li><a href="../index.html">Относительная ссылка (уровнем выше)</a></li>
+        <li><a href="../../index.html">Относительная ссылка (двумя уровнями выше)</a></li>
+        <li>Это <a href="#a1">контекстная ссылка</a> в тексте абзаца</li>
+        <li><a href="https://www.kubsu.ru/ru/node/44432">Ссылка на фрагмент страницы стороннего сайта</a></li>
 
-    <!-- 5. Сокращённая ссылка на главную страницу -->
-    <li><a href="/">Сокращённая ссылка на главную страницу</a></li>
+        <li>
+          <p>Ссылки из прямоугольных и круглых областей картинки (map):</p>
+          <map name="map">
+            <area shape="rect" coords="0,0,100,100" href="https://kubsu.ru/ru/node/1969" alt="Квадрат">
+            <area shape="circle" coords="200,200,80" href="https://kubsu.ru/ru/node/1969" alt="Круг">
+            <img class="img-thumbnail"
+                 src="romashka.jpg"
+                 alt="Картинка с разными областями"
+                 usemap="#map"
+                 width="300"
+                 height="300">
+          </map>
+        </li>
 
-    <!-- 6. Ссылка на фрагмент текущей страницы -->
-    <li><a href="#form">Ссылка на фрагмент текущей страницы (к форме ниже)</a></li>
+        <li><a href="">Ссылка с пустым href</a></li>
+        <li><a>Ссылка без href</a></li>
+        <li><a href="/no-follow" rel="nofollow">Ссылка, по которой запрещён переход поисковикам</a></li>
+        <li><a href="/no-index" rel="noindex">Запрещённая ссылка для индексации</a></li>
 
-    <!-- 7. Ссылка с тремя параметрами -->
-    <li><a href="index.html?param1=one&amp;param2=two&amp;param3=three">Ссылка с тремя параметрами</a></li>
+        <li>Нумерованный список ссылок с подсказками:
+          <ol>
+            <li><a href="/link1" title="Подсказка 1">Ссылка 1</a></li>
+            <li><a href="/link2" title="Подсказка 2">Ссылка 2</a></li>
+            <li><a href="/link3" title="Подсказка 3">Ссылка 3</a></li>
+          </ol>
+        </li>
 
-    <!-- 8. Ссылка с параметром id -->
-    <li><a href="index.html?id=123">Ссылка с параметром id</a></li>
+        <li><a href="ftp://username:password@example.com/path/to/file">Ссылка на файл на FTP с авторизацией</a></li>
+      </ul>
+    </div>
 
-    <!-- 9. Относительная ссылка (текущий каталог) -->
-    <li><a href="./page.html">Относительная ссылка на страницу в текущем каталоге</a></li>
+    <div class="item2">
+      <table class="table table-bordered table-striped">
+        <caption class="fs-4">Мои любимые блюда</caption>
+        <thead class="table-primary">
+          <tr>
+            <th>Завтрак</th>
+            <th>Полдник</th>
+            <th>Обед</th>
+            <th>Ужин</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="2">Манная каша, сырники</td>
+            <td>Грибной суп</td>
+            <td>Плов</td>
+          </tr>
+          <tr>
+            <td>Блины с творогом</td>
+            <td>Омлет</td>
+            <td>Овощной салат</td>
+            <td>Куриные крылышки</td>
+          </tr>
+          <tr>
+            <td>Кофе и слойка с малиной</td>
+            <td>Сэндвич</td>
+            <td>Киш-лорен</td>
+            <td>Жареный картофель</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-    <!-- 10. Относительная ссылка (подкаталог about) -->
-    <li><a href="about/info.html">Относительная ссылка на страницу в каталоге about</a></li>
+  <div class="highlighted content">
+    <form action="/" method="POST">
+      <div class="fs-3">Форма</div>
 
-    <!-- 11. Относительная ссылка (уровень выше) -->
-    <li><a href="../index.html">Относительная ссылка на страницу уровнем выше</a></li>
+      <div class="mb-3">
+        <label for="fio" class="form-label">ФИО:</label>
+        <input class="form-control" id="fio" name="fio" type="text" placeholder="Кузнецова Ирина Евгеньевна">
+      </div>
 
-    <!-- 12. Относительная ссылка (два уровня выше) -->
-    <li><a href="../../index.html">Относительная ссылка на страницу двумя уровнями выше</a></li>
+      <div class="mb-3">
+        <label for="phone" class="form-label">Номер телефона:</label>
+        <input class="form-control" id="phone" name="phone" type="tel" placeholder="89002558833">
+      </div>
 
-    <!-- 13. Контекстная ссылка -->
-    <li>
-      <p>На сайте <a href="https://developer.mozilla.org/ru/">MDN Web Docs</a> можно прочитать о веб-технологиях.</p>
-    </li>
+      <div class="mb-3">
+        <label for="email" class="form-label">E-mail:</label>
+        <input class="form-control" id="email" name="email" type="email" placeholder="irun4ikug@gmail.com">
+      </div>
 
-    <!-- 14. Ссылка на фрагмент стороннего сайта -->
-    <li><a href="https://ru.wikipedia.org/wiki/HTML#История">Ссылка на фрагмент стороннего сайта (Wikipedia)</a></li>
+      <div class="mb-3">
+        <label for="birth" class="form-label">Дата рождения:</label>
+        <input name="birth" id="birth" type="date" class="form-control">
+      </div>
 
-    <!-- 15. Картинка с областями -->
-    <li>
-      <p>Карта изображения с кликабельными областями:</p>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Smiley.svg/300px-Smiley.svg.png"
-           usemap="#map1" alt="Карта ссылок" class="map-img">
-      <map name="map1">
-        <area shape="rect" coords="10,10,140,140" href="https://kubsu.ru/" alt="KubSU">
-        <area shape="circle" coords="220,75,50" href="https://developer.mozilla.org/" alt="MDN">
-      </map>
-    </li>
+      <p>Пол:</p>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+        <label class="form-check-label" for="male">Мужской</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="gender" id="female" value="female" checked>
+        <label class="form-check-label" for="female">Женский</label>
+      </div>
 
-    <!-- 16. Ссылка с пустым href -->
-    <li><a href="">Ссылка с пустым href (обновляет страницу)</a></li>
+      <div class="mt-3">
+        <label for="langs" class="form-label">Любимый язык программирования:</label>
+        <select name="langs[]" id="langs" multiple class="form-select">
+          <option>Pascal</option>
+          <option>C</option>
+          <option>C++</option>
+          <option>JavaScript</option>
+          <option>PHP</option>
+          <option>Python</option>
+          <option>Java</option>
+          <option>Prolog</option>
+          <option>Scala</option>
+        </select>
+      </div>
 
-    <!-- 17. Ссылка без href -->
-    <li><a>Ссылка без href (неактивна)</a></li>
+      <div class="mt-3 form-floating">
+        <textarea class="form-control" id="bio" placeholder="Напишите о себе..."></textarea>
+        <label for="bio">Биография</label>
+      </div>
 
-    <!-- 18. Ссылка с rel="nofollow" -->
-    <li><a href="https://example.com" rel="nofollow">Ссылка с атрибутом rel="nofollow"</a></li>
+      <div class="mt-3 form-check">
+        <input type="checkbox" class="form-check-input" id="contract">
+        <label class="form-check-label" for="contract">С контрактом ознакомлена</label>
+      </div>
 
-    <!-- 19. Ссылка с rel="noindex" -->
-    <li><a href="https://example.com" rel="noindex">Ссылка с атрибутом rel="noindex"</a></li>
+      <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+      </div>
+    </form>
+  </div>
 
-    <!-- 20. Нумерованный список ссылок с title -->
-    <li>
-      <ol>
-        <li><a href="https://example.com/one" title="Первая ссылка">Первая ссылка</a></li>
-        <li><a href="https://example.com/two" title="Вторая ссылка">Вторая ссылка</a></li>
-        <li><a href="https://example.com/three" title="Третья ссылка">Третья ссылка</a></li>
-      </ol>
-    </li>
-
-    <!-- 21. FTP-ссылка -->
-    <li><a href="ftp://user:password@ftp.example.com/file.zip">FTP-ссылка с авторизацией</a></li>
-  </ul>
-
-  <!-- Форма -->
-  <h2 id="form">Форма</h2>
-  <form action="#" method="post">
-    <label for="fio">ФИО</label>
-    <input type="text" id="fio" name="fio" placeholder="Введите ваше ФИО">
-
-    <label for="phone">Телефон</label>
-    <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__">
-
-    <label for="email">E-mail</label>
-    <input type="email" id="email" name="email" placeholder="example@mail.com">
-
-    <label for="birth">Дата рождения</label>
-    <input type="date" id="birth" name="birth">
-
-    <fieldset>
-      <legend>Пол</legend>
-      <label><input type="radio" name="gender" value="male"> Мужской</label>
-      <label><input type="radio" name="gender" value="female"> Женский</label>
-    </fieldset>
-
-    <label for="langs">Любимый язык программирования</label>
-    <select id="langs" name="langs[]" multiple>
-      <option>Pascal</option>
-      <option>C</option>
-      <option>C++</option>
-      <option>JavaScript</option>
-      <option>PHP</option>
-      <option>Python</option>
-      <option>Java</option>
-      <option>Prolog</option>
-      <option>Scala</option>
-    </select>
-
-    <label for="bio">Биография</label>
-    <textarea id="bio" name="bio" rows="5" placeholder="Напишите немного о себе"></textarea>
-
-    <label><input type="checkbox" name="contract"> С контрактом ознакомлен</label>
-
-    <button type="submit">Сохранить</button>
-  </form>
-
+  <footer class="highlighted text-center mt-4">
+    <p>&copy; Кузнецова Ирина Евгеньевна, 2025</p>
+  </footer>
 </body>
 </html>
