@@ -3,60 +3,115 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Задание 1</title>
+  <title>Задание 1 — Ссылки и форма</title>
+
+  <!-- Простое оформление страницы -->
   <style>
     body {
-      font-family: Arial, sans-serif;
-      line-height: 1.5;
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
       max-width: 900px;
-      margin: auto;
-      padding: 20px;
+      margin: 0 auto;
+      padding: 30px;
+      background: #f4f6fa;
+      color: #222;
     }
-    ul, ol { margin-left: 20px; }
+
+    h1, h2 {
+      color: #0b5bd3;
+      text-align: center;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+    }
+
+    a {
+      color: #0b5bd3;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
     form {
       border: 1px solid #ccc;
-      padding: 15px;
-      border-radius: 8px;
-      background: #f9f9f9;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
-    label { display: block; margin: 8px 0 4px; }
+
+    label {
+      display: block;
+      margin: 10px 0 4px;
+      font-weight: 600;
+    }
+
     input, textarea, select {
       width: 100%;
-      max-width: 100%;
-      padding: 6px;
+      padding: 8px;
+      border: 1px solid #bbb;
+      border-radius: 5px;
       margin-bottom: 10px;
+      font-size: 14px;
     }
-    fieldset { margin-bottom: 10px; }
-    legend { font-weight: bold; }
+
+    fieldset {
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #0b5bd3;
+    }
+
     button {
-      padding: 8px 14px;
+      padding: 10px 20px;
+      background: #0b5bd3;
+      color: #fff;
       border: none;
       border-radius: 6px;
-      background: #0b7dda;
-      color: #fff;
+      font-size: 15px;
       cursor: pointer;
     }
-    .map-img { max-width: 400px; display: block; margin-top: 10px; }
+
+    button:hover {
+      background: #0949b8;
+    }
+
+    .map-img {
+      max-width: 400px;
+      display: block;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
   </style>
 </head>
+
 <body>
 
   <!-- Заголовок страницы -->
-  <h1>Ссылки и форма (задание 1)</h1>
+  <h1>Ссылки и форма</h1>
 
-  <!-- 1–21 пункты ссылок -->
+  <!-- Список ссылок -->
   <ul>
     <!-- 1. Абсолютная ссылка (http) -->
-    <li><a href="http://kubsu.ru/">Абсолютная ссылка (http)</a></li>
+    <li><a href="http://kubsu.ru/">Абсолютная ссылка (http) — сайт КубГУ</a></li>
 
     <!-- 2. Абсолютная ссылка (https) -->
-    <li><a href="https://kubsu.ru/">Абсолютная ссылка (https)</a></li>
+    <li><a href="https://kubsu.ru/">Абсолютная ссылка (https) — сайт КубГУ</a></li>
 
     <!-- 3. Ссылка-изображение -->
     <li>
       <!-- Ссылка в виде картинки -->
       <a href="https://kubsu.ru/">
-        <img src="https://www.kubsu.ru/sites/default/files/logo_0.png" alt="Логотип КубГУ">
+        <img src="https://www.kubsu.ru/sites/default/files/logo_0.png" alt="Логотип КубГУ" width="180">
       </a>
     </li>
 
@@ -67,59 +122,56 @@
     <li><a href="/">Сокращённая ссылка на главную страницу</a></li>
 
     <!-- 6. Ссылка на фрагмент текущей страницы -->
-    <li><a href="#form">Ссылка на фрагмент текущей страницы (к форме)</a></li>
+    <li><a href="#form">Ссылка на фрагмент текущей страницы (к форме ниже)</a></li>
 
     <!-- 7. Ссылка с тремя параметрами -->
-    <li><a href="index.html?param1=one&param2=two&param3=three">Ссылка с тремя параметрами</a></li>
+    <li><a href="index.html?param1=one&amp;param2=two&amp;param3=three">Ссылка с тремя параметрами</a></li>
 
     <!-- 8. Ссылка с параметром id -->
     <li><a href="index.html?id=123">Ссылка с параметром id</a></li>
 
-    <!-- 9. Относительная ссылка на страницу в текущем каталоге -->
-    <li><a href="./page.html">Относительная ссылка (текущий каталог)</a></li>
+    <!-- 9. Относительная ссылка (текущий каталог) -->
+    <li><a href="./page.html">Относительная ссылка на страницу в текущем каталоге</a></li>
 
-    <!-- 10. Относительная ссылка на страницу в каталоге about -->
-    <li><a href="about/info.html">Относительная ссылка (каталог about)</a></li>
+    <!-- 10. Относительная ссылка (подкаталог about) -->
+    <li><a href="about/info.html">Относительная ссылка на страницу в каталоге about</a></li>
 
-    <!-- 11. Относительная ссылка на страницу уровнем выше -->
-    <li><a href="../index.html">Относительная ссылка (уровень выше)</a></li>
+    <!-- 11. Относительная ссылка (уровень выше) -->
+    <li><a href="../index.html">Относительная ссылка на страницу уровнем выше</a></li>
 
-    <!-- 12. Относительная ссылка на страницу двумя уровнями выше -->
-    <li><a href="../../index.html">Относительная ссылка (два уровня выше)</a></li>
+    <!-- 12. Относительная ссылка (два уровня выше) -->
+    <li><a href="../../index.html">Относительная ссылка на страницу двумя уровнями выше</a></li>
 
     <!-- 13. Контекстная ссылка -->
     <li>
-      <!-- Ссылка встроена в текст -->
       <p>На сайте <a href="https://developer.mozilla.org/ru/">MDN Web Docs</a> можно прочитать о веб-технологиях.</p>
     </li>
 
-    <!-- 14. Ссылка на фрагмент страницы стороннего сайта -->
+    <!-- 14. Ссылка на фрагмент стороннего сайта -->
     <li><a href="https://ru.wikipedia.org/wiki/HTML#История">Ссылка на фрагмент стороннего сайта (Wikipedia)</a></li>
 
-    <!-- 15. Ссылка из областей картинки -->
+    <!-- 15. Картинка с областями (map) -->
     <li>
-      <p>Карта изображений с разными областями:</p>
+      <p>Карта изображения с кликабельными областями:</p>
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Smiley.svg/300px-Smiley.svg.png"
            usemap="#map1" alt="Карта ссылок" class="map-img">
       <map name="map1">
-        <!-- Прямоугольная область ведёт на kubsu.ru -->
         <area shape="rect" coords="10,10,140,140" href="https://kubsu.ru/" alt="KubSU">
-        <!-- Круглая область ведёт на MDN -->
         <area shape="circle" coords="220,75,50" href="https://developer.mozilla.org/" alt="MDN">
       </map>
     </li>
 
     <!-- 16. Ссылка с пустым href -->
-    <li><a href="">Ссылка с пустым href</a></li>
+    <li><a href="">Ссылка с пустым href (обновляет страницу)</a></li>
 
     <!-- 17. Ссылка без href -->
-    <li><a>Ссылка без href</a></li>
+    <li><a>Ссылка без href (неактивна)</a></li>
 
-    <!-- 18. Ссылка с nofollow -->
-    <li><a href="https://example.com" rel="nofollow">Ссылка с rel="nofollow"</a></li>
+    <!-- 18. Ссылка с rel="nofollow" -->
+    <li><a href="https://example.com" rel="nofollow">Ссылка с атрибутом rel="nofollow"</a></li>
 
-    <!-- 19. Ссылка с noindex -->
-    <li><a href="https://example.com" rel="noindex">Ссылка с rel="noindex"</a></li>
+    <!-- 19. Ссылка с rel="noindex" -->
+    <li><a href="https://example.com" rel="noindex">Ссылка с атрибутом rel="noindex"</a></li>
 
     <!-- 20. Нумерованный список ссылок с title -->
     <li>
@@ -130,7 +182,7 @@
       </ol>
     </li>
 
-    <!-- 21. FTP-ссылка с авторизацией -->
+    <!-- 21. FTP-ссылка -->
     <li><a href="ftp://user:password@ftp.example.com/file.zip">FTP-ссылка с авторизацией</a></li>
   </ul>
 
@@ -139,15 +191,15 @@
   <form action="#" method="post">
     <!-- Поле ФИО -->
     <label for="fio">ФИО</label>
-    <input type="text" id="fio" name="fio">
+    <input type="text" id="fio" name="fio" placeholder="Введите ваше ФИО">
 
     <!-- Телефон -->
     <label for="phone">Телефон</label>
-    <input type="tel" id="phone" name="phone">
+    <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__">
 
-    <!-- E-mail -->
+    <!-- Email -->
     <label for="email">E-mail</label>
-    <input type="email" id="email" name="email">
+    <input type="email" id="email" name="email" placeholder="example@mail.com">
 
     <!-- Дата рождения -->
     <label for="birth">Дата рождения</label>
@@ -170,17 +222,15 @@
       <option>PHP</option>
       <option>Python</option>
       <option>Java</option>
-      <option>Haskel</option>
-      <option>Clojure</option>
       <option>Prolog</option>
       <option>Scala</option>
     </select>
 
     <!-- Биография -->
     <label for="bio">Биография</label>
-    <textarea id="bio" name="bio" rows="5"></textarea>
+    <textarea id="bio" name="bio" rows="5" placeholder="Напишите немного о себе"></textarea>
 
-    <!-- С контрактом ознакомлен -->
+    <!-- Чекбокс -->
     <label><input type="checkbox" name="contract"> С контрактом ознакомлен</label>
 
     <!-- Кнопка -->
@@ -189,4 +239,3 @@
 
 </body>
 </html>
-
