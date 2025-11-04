@@ -1,0 +1,141 @@
+.header-site{
+    position: relative;
+    width: 100%;
+    height: 220px;
+}
+a{
+    text-decoration: none;
+    color: #000000;
+}
+.photo1{
+    margin: 5px;
+}
+.header-top{
+    width: 100%;
+    height: 100px;
+}
+.contain{
+    width: 100%;
+}
+.header-row{
+   display: flex;
+}
+.fs-2{
+    text-align: center;
+    padding: 20px 30px;
+}
+.menu{
+    margin-top: 10px;
+    width: calc(100%-20px);
+    text-align: center;
+    justify-content: start;
+    display: flex;
+    background-color: #FFFAD8;
+}
+.menu ul{
+    flex-direction: column;
+    display: flex;
+    gap: 10px;
+    list-style-type: none;
+}
+caption {
+    padding: 15px;
+    caption-side: top;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+table {
+    width: 960px;
+    margin: 0 auto;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+th, td 
+{
+    border: 1px solid #ccc; 
+    padding: 15px; 
+    text-align: center;
+}
+.highlighted {
+    background-color: #FFEBEE;
+}
+.one {
+    background-color: #FFFAD8;
+}
+.two {
+    background-color: #D4FFC4;
+}
+.content {
+    width: 960px;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 10px;
+}   
+footer {
+    width: calc(100%-20px);
+    margin: 0 auto;
+    margin-top: 10px;
+    height: 50px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.container-main{
+    display: flex;
+    flex-direction: column;
+}
+.menu-main{
+    display: none;
+}
+.item2{
+    order: -1;
+}
+.item1{
+    order: 0;
+}
+@media (width >= 1024px){
+    .item2{
+        order: 0;
+    }
+    .item1{
+        order: 0;
+    }
+    .header-site{
+        display: flex;
+        width: 100%;
+        height: 100px;
+    }
+    .header-row{
+        display: flex;
+    }
+    .name1{
+    text-align: center;
+    padding: 20px 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+
+    }
+    .menu{
+        display: none;
+    }
+    .menu-main ul{
+        flex-direction: row;
+        display: flex;
+        gap: 15px;
+        list-style-type: none;
+        text-decoration: none;
+    }
+    .menu-main{
+        display: flex;
+        background-color: #FFFAD8;
+        padding: 10px;
+        height: 60px;
+        width: 400px;
+        margin-left: auto;
+        justify-content: center;
+        border-radius: 10px;
+    }
+}
