@@ -1,40 +1,34 @@
-<!DOCTYPE html> <!-- Тип документа HTML5 -->
-<html lang="ru"> <!-- Указываем язык страницы -->
-
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-  <meta charset="utf-8"> <!-- Кодировка, чтобы русский отображался правильно -->
-  <title>Кузнецова Ирина Евгеньевна</title> <!-- Название вкладки браузера -->
+  <meta charset="utf-8">
+  <title>Кузнецова Ирина Евгеньевна</title>
 
-  <!-- Подключение Bootstrap CSS — библиотека для красивой верстки -->
+  <!-- Bootstrap стили -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Подключение моего файла стилей -->
+  <!-- Мои стили -->
   <link rel="stylesheet" href="basecss.css" type="text/css"/>
-
-  <!-- Подключение Bootstrap JS — для интерактивных элементов -->
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
   <!-- Шапка сайта -->
   <header class="header-site">
-
-    <!-- Верхняя часть шапки -->
     <div class="header-top highlighted">
       <div class="contain">
         <div class="header-row">
 
-          <!-- Моя фотография -->
+          <!-- Фото -->
           <div class="img-thumbnail photo1"><img src="ava.jpg" alt="Моё фото"></div>
 
-          <!-- Заголовок страницы -->
+          <!-- Название -->
           <div class="fs-2">Задание 5</div>
 
           <!-- Меню для больших экранов -->
           <div class="menu-main">
             <nav>
               <ul>
-                <!-- Абсолютные и относительные ссылки -->
                 <li><a href="/index.html">Главная</a></li>
                 <li><a href="/index.html">Информация</a></li>
                 <li><a href="mailto:irun4ikug@gmail.com">Моя почта</a></li>
@@ -47,7 +41,7 @@
       </div>
     </div>
 
-    <!-- Меню для мобильной версии -->
+    <!-- Меню мобильное -->
     <nav class="menu">
       <ul>
         <li><a href="/index.html">Главная</a></li>
@@ -56,104 +50,70 @@
         <li><a href="https://vk.com/kuz.ira2">Мой ВК</a></li>
       </ul>
     </nav>
-
   </header>
 
-  <!-- Основной контейнер страницы -->
+  <!-- Контент -->
   <div class="container-main">
 
-    <!-- Блок со ссылками (задание 1) -->
+    <!-- Ссылки -->
     <div class="highlighted content item1">
       <div class="fs-3">Гиперссылки</div>
-
       <ul>
-        <!-- Абсолютная ссылка HTTP -->
-        <li><a href="http://kubsu.ru">Абсолютная ссылка (HTTP)</a></li>
+        <li><a href="http://kubsu.ru">Абсолютная (HTTP)</a></li>
+        <li><a href="https://kubsu.ru">Абсолютная (HTTPS)</a></li>
 
-        <!-- Абсолютная ссылка HTTPS -->
-        <li><a href="https://kubsu.ru">Абсолютная ссылка (HTTPS)</a></li>
-
-        <!-- Ссылка-изображение -->
         <li>
           <a href="https://kubsu.ru">
-            <img class="img-thumbnail"
-                 src="kubik.jpg"
-                 alt="Ссылка-изображение"
-                 id="a1"
-                 width="300"
-                 height="200">
+            <img class="img-thumbnail" src="kubik.jpg" alt="Ссылка-изображение" id="a1" width="300" height="200">
           </a>
         </li>
 
-        <!-- Относительные ссылки -->
         <li><a href="/index.html">Внутренняя страница</a></li>
         <li><a href="/">Главная</a></li>
+        <li><a href="#a1">Фрагмент текущей страницы</a></li>
 
-        <!-- Ссылка на элемент этой страницы -->
-        <li><a href="#a1">Переход к изображению</a></li>
+        <li><a href="/index?size=m&color=black&page=1">3 параметра</a></li>
+        <li><a href="/index?id=123">ID параметр</a></li>
 
-        <!-- Ссылки с параметрами -->
-        <li><a href="/index?size=m&color=black&page=1">Ссылка с 3 параметрами</a></li>
-        <li><a href="/index?id=123">Ссылка с параметром id</a></li>
-
-        <!-- Относительные пути -->
         <li><a href="./index.html">Текущий каталог</a></li>
         <li><a href="/about/index.html">Каталог about</a></li>
-        <li><a href="../index.html">На уровень выше</a></li>
-        <li><a href="../../index.html">На два уровня выше</a></li>
+        <li><a href="../index.html">На уровень вверх</a></li>
+        <li><a href="../../index.html">На 2 уровня вверх</a></li>
 
-        <!-- Контекстная ссылка -->
         <li>Это <a href="#a1">контекстная ссылка</a></li>
 
-        <!-- Фрагмент сторонней страницы -->
-        <li><a href="https://www.kubsu.ru/ru/node/44432">Фрагмент стороннего сайта</a></li>
+        <li><a href="https://www.kubsu.ru/ru/node/44432">Фрагмент сторонней страницы</a></li>
 
-        <!-- Области изображения -->
         <li>
-          <p>Карта изображения (кликабельные области):</p>
+          Карта изображения (области):
           <map name="map">
-            <!-- Прямоугольная область -->
-            <area shape="rect" coords="0,0,100,100" href="https://kubsu.ru/ru/node/1969" alt="Квадрат">
-            <!-- Круглая область -->
-            <area shape="circle" coords="200,200,80" href="https://kubsu.ru/ru/node/1969" alt="Круг">
-
-            <!-- Картинка с областями -->
-            <img class="img-thumbnail"
-                 src="romashka.jpg"
-                 alt="Картинка с областями"
-                 usemap="#map"
-                 width="300"
-                 height="300">
+            <area shape="rect" coords="0,0,100,100" href="https://kubsu.ru/ru/node/1969">
+            <area shape="circle" coords="200,200,80" href="https://kubsu.ru/ru/node/1969">
+            <img class="img-thumbnail" src="romashka.jpg" alt="map" usemap="#map" width="300" height="300">
           </map>
         </li>
 
-        <!-- Специальные ссылки -->
-        <li><a href="">Ссылка с пустым href (ничего не делает, пример)</a></li>
-        <li><a>Ссылка без href (тоже пример)</a></li>
-        <li><a href="/no-follow" rel="nofollow">nofollow — поисковик не переходит</a></li>
-        <li><a href="/no-index" rel="noindex">noindex — поисковик не индексирует</a></li>
+        <li><a href="">Пустой href</a></li>
+        <li><a>Без href</a></li>
+        <li><a href="/no-follow" rel="nofollow">nofollow</a></li>
+        <li><a href="/no-index" rel="noindex">noindex</a></li>
 
-        <!-- Нумерованный список ссылок -->
         <li>
-          Нумерованный список:
           <ol>
-            <li><a href="/link1" title="Подсказка 1">Ссылка 1</a></li>
-            <li><a href="/link2" title="Подсказка 2">Ссылка 2</a></li>
-            <li><a href="/link3" title="Подсказка 3">Ссылка 3</a></li>
+            <li><a href="/link1" title="1">Ссылка 1</a></li>
+            <li><a href="/link2" title="2">Ссылка 2</a></li>
+            <li><a href="/link3" title="3">Ссылка 3</a></li>
           </ol>
         </li>
 
-        <!-- FTP ссылка -->
-        <li><a href="ftp://username:password@example.com/path/to/file">FTP с авторизацией</a></li>
+        <li><a href="ftp://username:password@example.com/path/to/file">FTP ссылка</a></li>
       </ul>
     </div>
 
-    <!-- Таблица (задание 2) -->
+    <!-- Таблица -->
     <div class="item2">
       <table class="table table-bordered table-striped">
         <caption class="fs-4">Мои любимые блюда</caption>
-
-        <!-- Заголовки таблицы -->
         <thead class="table-primary">
           <tr>
             <th>Завтрак</th>
@@ -162,8 +122,6 @@
             <th>Ужин</th>
           </tr>
         </thead>
-
-        <!-- ⚠️ Исправленные строки таблицы -->
         <tbody>
           <tr>
             <td colspan="2">Манная каша, сырники</td>
@@ -182,23 +140,21 @@
             <td>Киш-лорен</td>
             <td>Жареный картофель</td>
           </tr>
-
-          <!-- Добавленные строки -->
           <tr>
             <td>Тосты с авокадо</td>
-            <td>Йогурт с гранолой</td>
+            <td>Йогурт</td>
             <td>Борщ</td>
             <td>Запечённая рыба</td>
           </tr>
           <tr>
             <td>Овсяная каша</td>
             <td>Фрукты</td>
-            <td>Спагетти болоньезе</td>
+            <td>Спагетти</td>
             <td>Греческий салат</td>
           </tr>
           <tr>
             <td>Сырники</td>
-            <td>Чай с лимоном</td>
+            <td>Чай</td>
             <td>Куриный суп</td>
             <td>Тушёные овощи</td>
           </tr>
@@ -207,36 +163,32 @@
     </div>
   </div>
 
-  <!-- Форма (задание 3) -->
+  <!-- Форма -->
   <div class="highlighted content">
-    <form action="/" method="POST"> <!-- method POST — отправка данных на сервер -->
+    <form action="/" method="POST">
+
       <div class="fs-3">Форма</div>
 
-      <!-- Поле ФИО -->
       <div class="mb-3">
         <label for="fio" class="form-label">ФИО:</label>
         <input class="form-control" id="fio" name="fio" type="text" placeholder="Кузнецова Ирина Евгеньевна">
       </div>
 
-      <!-- Телефон -->
       <div class="mb-3">
         <label for="phone" class="form-label">Телефон:</label>
         <input class="form-control" id="phone" name="phone" type="tel" placeholder="89002558833">
       </div>
 
-      <!-- Email -->
       <div class="mb-3">
-        <label for="email" class="form-label">E-mail:</label>
+        <label for="email" class="form-label">Email:</label>
         <input class="form-control" id="email" name="email" type="email" placeholder="irun4ikug@gmail.com">
       </div>
 
-      <!-- Дата рождения -->
       <div class="mb-3">
         <label for="birth" class="form-label">Дата рождения:</label>
         <input name="birth" id="birth" type="date" class="form-control">
       </div>
 
-      <!-- Радиокнопки — выбор пола -->
       <p>Пол:</p>
       <div class="form-check">
         <input class="form-check-input" type="radio" name="gender" id="male" value="male">
@@ -247,7 +199,6 @@
         <label class="form-check-label" for="female">Женский</label>
       </div>
 
-      <!-- Выбор языков программирования -->
       <div class="mt-3">
         <label for="langs" class="form-label">Любимый язык программирования:</label>
         <select name="langs[]" id="langs" multiple class="form-select">
@@ -263,9 +214,8 @@
         </select>
       </div>
 
-      <!-- Биография -->
       <div class="mt-3 form-floating">
-        <textarea class="form-control" id="bio" placeholder="Напишите о себе..."></textarea>
+        <textarea class="form-control" id="bio" placeholder="О себе"></textarea>
         <label for="bio">Биография</label>
       </div>
 
@@ -275,17 +225,17 @@
         <label class="form-check-label" for="contract">С контрактом ознакомлена</label>
       </div>
 
-      <!-- Кнопка отправки -->
+      <!-- Кнопка -->
       <div class="mt-3">
         <button type="submit" class="btn btn-primary">Сохранить</button>
       </div>
+
     </form>
   </div>
 
-  <!-- Подвал сайта -->
+  <!-- Подвал -->
   <footer class="highlighted text-center mt-4">
     <p>&copy; Кузнецова Ирина Евгеньевна, 2025</p>
   </footer>
-
 </body>
 </html>
