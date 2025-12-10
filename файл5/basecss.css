@@ -1,0 +1,9 @@
+.highlighted {
+    background-color: #FFEBEE;
+}
+.table-center td, .table-center th {
+    text-align: center;
+}
+.navbar{
+    border-radius: 8px;
+}
