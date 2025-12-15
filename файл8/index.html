@@ -9,33 +9,46 @@
 
 <h1>Контактная форма</h1>
 
-<form id="my-sweet-form">
+<form
+    action="https://formcarry.com/s/YhFifbGcXzg"
+    method="POST"
+>
+
     <p>
-        <input id="name" name="name" placeholder="ФИО">
+        <label>ФИО</label><br>
+        <input type="text" name="name" required>
     </p>
+
     <p>
-        <input id="email" name="email" placeholder="Email">
+        <label>Email</label><br>
+        <input type="email" name="email" required>
     </p>
+
     <p>
-        <input id="tel" name="tel" placeholder="Телефон">
+        <label>Телефон</label><br>
+        <input type="tel" name="tel">
     </p>
+
     <p>
-        <input id="organization" name="organization" placeholder="Организация">
+        <label>Организация</label><br>
+        <input type="text" name="organization">
     </p>
+
     <p>
-        <textarea id="message" name="message" placeholder="Сообщение"></textarea>
+        <label>Сообщение</label><br>
+        <textarea name="message"></textarea>
     </p>
+
     <p>
         <label>
-            <input type="checkbox" id="checkbox">
-            Согласие на обработку данных
+            <input type="checkbox" required>
+            Я соглашаюсь с политикой обработки персональных данных
         </label>
     </p>
+
     <button type="submit">Отправить</button>
+
 </form>
 
-<script src="newjavascript.js"></script>
 </body>
-</html>
-
 </html>
