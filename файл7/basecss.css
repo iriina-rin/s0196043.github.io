@@ -1,0 +1,39 @@
+header{
+    background-color: #FFFE91;
+    color: chocolate;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+a{
+    text-decoration: none;
+}
+.gallery-container {
+  padding: 1rem;
+  max-width: 95%;
+  margin: 0 auto;
+}
+.multiple-items {
+  margin: 0 auto;
+}
+.slide {
+  flex: 0 0 100%;
+  padding: 5px;
+}
+.slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+.slick-prev:before, 
+.slick-next:before {
+    color: #FFA55F;
+    font-size: 30px;
+}
+@media (min-width: 720px) {
+    .gallery-container {
+        max-width: 80%;
+    }
+}
