@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const popup = document.getElementById("my-dialog");
     const open = document.querySelector(".open-dialog");
-    
+    const form = document.getElementById('my-sweet-form');
+
     
     function getFormData() {
         return {
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     open.addEventListener('click', openPopup);
 
-    close.addEventListener('click', closePopup);
+    
     
     window.addEventListener('click', function (event) {
         if (event.target === popup) {
