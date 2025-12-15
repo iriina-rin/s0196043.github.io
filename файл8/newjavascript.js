@@ -16,28 +16,28 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function closePopup() {
-        popup.style.display = "none";
+    popup.close();
 
-        if (location.hash.includes('#form')) {
-            history.back();
-        }
+    if (location.hash.includes('#form')) {
+        history.back();
+    }
+}
+
+function openPopup() {
+    const saved = localStorage.getItem('formData');
+    if (saved) {
+        const formData = JSON.parse(saved);
+        document.getElementById('name').value = formData.name || '';
+        document.getElementById('email').value = formData.email || '';
+        document.getElementById('tel').value = formData.tel || '';
+        document.getElementById('organization').value = formData.organization || '';
+        document.getElementById('message').value = formData.message || '';
+        document.getElementById('checkbox').checked = formData.check || false;
     }
 
-    function openPopup() {
-        const saved = localStorage.getItem('formData');
-        if (saved) {
-            const formData = JSON.parse(saved);
-            document.getElementById('name').value = formData.name || '';
-            document.getElementById('email').value = formData.email || '';
-            document.getElementById('tel').value = formData.tel || '';
-            document.getElementById('organization').value = formData.organization || '';
-            document.getElementById('message').value = formData.message || '';
-            document.getElementById('checkbox').checked = formData.check || false;
-        }
-        
-        popup.style.display = "block";
-        history.pushState({form: 'open'}, '', '#form');
-    }
+    popup.showModal();
+    history.pushState({ form: 'open' }, '', '#form');
+}
 
     open.addEventListener('click', openPopup);
 
