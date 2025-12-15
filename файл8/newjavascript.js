@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const popup = document.getElementById("my-dialog");
     const open = document.querySelector(".open-dialog");
-    const close = document.querySelector(".close-dialog");
-    const form = document.getElementById('my-sweet-form');
+    
     
     function getFormData() {
         return {
