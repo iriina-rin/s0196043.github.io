@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const formData = getFormData();
 
-        fetch('https://formcarry.com/s/itTQnN6wezq', {
+        fetch('https://formcarry.com/s/YhFifbGcXzg', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
