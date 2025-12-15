@@ -1,0 +1,83 @@
+.container
+{
+    max-width: 1200px;
+    background-color: #FFE9E6;
+    border-radius: 8px;
+    padding: 1rem;
+}
+body 
+{
+  min-height: 100vh;
+  padding: 50px;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  color: #FFFFFF;
+}
+
+#my-dialog 
+{
+  position: fixed;
+  height: 90%;
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 3rem;
+  padding: 1rem;
+  border: none;
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+.open-dialog 
+{
+  margin: 0 auto;
+  padding: 10px;
+  position: fixed;
+  min-width: 200px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+}
+
+.close-dialog 
+{
+  margin: 0 auto;
+  border: 2px solid transparent;
+  min-width: 150px;
+  border-radius: 6px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+dialog::backdrop 
+{
+    background-color: #FFFFFF;
+}
+
+.scroll-lock 
+{
+  overflow: hidden;
+}
+
+@media (max-width: 480px) 
+{
+  #my-dialog {
+    top: 2%;
+    left: 2%;
+    width: 96%;
+    height: 96vh;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  .open-dialog,
+  .close-dialog {
+    padding: 10px;
+    font-size: 1rem;
+  }
+}
