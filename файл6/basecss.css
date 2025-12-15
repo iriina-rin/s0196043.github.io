@@ -1,0 +1,29 @@
+.container-main{
+    background-color: ivory;
+    height: auto;
+    border-radius: 8px;
+    border: hotpink;
+}
+#calc{
+    font-style: italic;
+}
+.container{
+    width: 70%;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: lightpink;
+    border-radius: 8px;
+    margin-top: 4rem;
+}
+#checkboxes {
+    display: none;
+}
+#prodOptions {
+    display: none;
+}
+.container-fluid{
+    background-color: ivory;
+    width: 500px;
+    border-radius: 8px;
+    margin-left: 0;
+}
