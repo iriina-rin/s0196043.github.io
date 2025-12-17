@@ -1,49 +1,56 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Контактная форма</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
+    <head>
+        <title>Контактная форма</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="basecss.css" type="text/css">
+    </head>
+    <body class="parent">
+        <button class="open-dialog" type="button" aria-haspopup="dialog" aria-controls="my-dialog">
+            Открыть попап
+        </button>
+        <dialog class="child" id="my-dialog">
+            <div class="dialog-wrapper">
+                <form id="my-sweet-form" class="container" action="https://formcarry.com/s/itTQnN6wezq" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">ФИО:</label> 
+                        <input class="form-control" id="name" name="name" type="text">
+                    </div>
 
-<h1>Контактная форма</h1>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Электронная почта:</label>
+                        <input class="form-control" id="email" name="email" type="email">
+                    </div>
 
-<form
-    action="https://formcarry.com/s/YhFifbGcXzg"
-    method="POST"
->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Номер телефона:</label>
+                        <input class="form-control" id="tel" name="tel" type="tel">
+                    </div>
 
-    <p>
-        <input type="text" name="name" placeholder="ФИО" required>
-    </p>
+                    <div class="mb-3">
+                        <label for="organization" class="form-label">Организация:</label>
+                        <input class="form-control" id="organization" name="organization">
+                    </div>
 
-    <p>
-        <input type="email" name="email" placeholder="Email" required>
-    </p>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Сообщение:</label>
+                        <textarea class="form-control" id="message" name="message"></textarea>
+                    </div>
 
-    <p>
-        <input type="tel" name="tel" placeholder="Телефон">
-    </p>
+                    <div class="mb-3">
+                        <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox">
+                        <label class="form-check-label" for="checkbox">Я соглашаюсь с политикой обработки персональных данных</label> 
+                    </div>
 
-    <p>
-        <input type="text" name="organization" placeholder="Организация">
-    </p>
-
-    <p>
-        <textarea name="message" placeholder="Сообщение"></textarea>
-    </p>
-
-    <p>
-        <label>
-            <input type="checkbox" required>
-            Согласие на обработку персональных данных
-        </label>
-    </p>
-
-    <button type="submit">Отправить</button>
-
-</form>
-
-</body>
+                    <div class="mb-3">
+                        <button type="submit" class="btn close-dialog btn-light">Отправить</button>
+                    </div>
+                </form>
+            </div>
+        </dialog>
+        <script src="newjavascript.js"></script>
+        <script src="https://carrier.formcarry.com/js/v1.js"></script>  
+    </body>
 </html>
