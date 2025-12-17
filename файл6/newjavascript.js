@@ -37,14 +37,19 @@ function updatePrice() {
   }
   
   const q = document.getElementById('number1');
-  let q1 = 1;
-  
-  if (q && q.value)
-  {
-      const pq = parseInt(q.value);
-      if (!isNaN(pq) && pq > 0)
-          q1 = pq;
-  }
+let q1 = 1;
+
+if (q && q.value !== '') {
+    const pq = parseInt(q.value);
+
+    if (isNaN(pq) || pq <= 0) {
+        alert('Количество должно быть положительным числом');
+        q.value = '';
+        return;
+    }
+
+    q1 = pq;
+}
 
   const selectElement = document.getElementById('prodOptions'); 
   const checkboxesDiv = document.getElementById('checkboxes'); 
