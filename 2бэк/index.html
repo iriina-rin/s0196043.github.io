@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Лабораторная работа №2 — HTTP запросы</title>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin:40px;
+}
+img{
+    width:900px;
+    border:1px solid #ccc;
+    margin:20px 0;
+}
+h1{
+    text-align:center;
+}
+h2{
+    margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Лабораторная работа №2</h1>
+<h3>Отправка HTTP-запросов к веб-серверу с помощью Telnet</h3>
+
+<h2>1. Получение главной страницы методом GET (HTTP 1.0)</h2>
+<p>
+Было выполнено подключение к веб-серверу с помощью программы telnet
+командой <b>telnet localhost 80</b>. Далее был отправлен HTTP-запрос:
+</p>
+
+<pre>
+GET / HTTP/1.0
+</pre>
+
+<p>
+Сервер вернул HTML-код главной страницы и статус <b>HTTP/1.1 200 OK</b>,
+что означает успешное выполнение запроса.
+</p>
+
+<img src="1.png">
+
+<h2>2. Получение внутренней страницы методом GET (HTTP 1.1)</h2>
+
+<p>
+После подключения к серверу был отправлен запрос:
+</p>
+
+<pre>
+GET /s0196043.github.io/files/index.php HTTP/1.1
+Host: u82815.kubsu-dev.ru
+</pre>
+
+<p>
+Сервер обработал запрос и вернул ответ со статусом <b>200 OK</b>
+и содержимым PHP-страницы.
+</p>
+
+<img src="2.png">
+
+<h2>3. Определение размера файла file.tar.gz</h2>
+
+<p>
+Для определения размера файла был отправлен запрос методом <b>HEAD</b>:
+</p>
+
+<pre>
+HEAD /s0196043.github.io/file.tar.gz HTTP/1.1
+Host: u82815.kubsu-dev.ru
+</pre>
+
+<p>
+В заголовке ответа сервера присутствует строка:
+</p>
+
+<pre>
+Content-Length: 11335
+</pre>
+
+<p>
+Следовательно, размер файла составляет <b>11335 байт</b>.
+</p>
+
+<img src="3.png">
+
+<h2>4. Определение медиатипа ресурса image.png</h2>
+
+<p>
+Был отправлен запрос:
+</p>
+
+<pre>
+HEAD /s0196043.github.io/files/image.png HTTP/1.1
+Host: u82815.kubsu-dev.ru
+</pre>
+
+<p>
+В ответе сервера указан заголовок:
+</p>
+
+<pre>
+Content-Type: image/png
+</pre>
+
+<p>
+Следовательно, медиатип данного ресурса — <b>image/png</b>.
+</p>
+
+<img src="4.png">
+
+<h2>5. Отправка комментария методом POST</h2>
+
+<p>
+Был отправлен POST-запрос на страницу <b>index.php</b>:
+</p>
+
+<pre>
+POST /s0196043.github.io/files/index.php HTTP/1.1
+Host: u82815.kubsu-dev.ru
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 21
+
+comment=hello_server
+</pre>
+
+<p>
+Сервер обработал запрос и вывел переданный параметр
+через массив <b>$_POST</b>.
+</p>
+
+<img src="5.png">
+
+<h2>6. Получение первых 100 байт файла</h2>
+
+<p>
+Для получения части файла был использован заголовок <b>Range</b>.
+</p>
+
+<pre>
+GET /s0196043.github.io/file.tar.gz HTTP/1.1
+Host: u82815.kubsu-dev.ru
+Range: bytes=0-99
+</pre>
+
+<p>
+Сервер вернул статус:
+</p>
+
+<pre>
+HTTP/1.1 206 Partial Content
+</pre>
+
+<p>
+Это означает, что сервер отправил только запрошенную часть файла
+(первые 100 байт).
+</p>
+
+<img src="6.png">
+
+<h2>7. Определение кодировки ресурса index.php</h2>
+
+<p>
+Был отправлен запрос:
+</p>
+
+<pre>
+HEAD /s0196043.github.io/files/index.php HTTP/1.1
+Host: u82815.kubsu-dev.ru
+</pre>
+
+<p>
+В заголовке ответа сервера указано:
+</p>
+
+<pre>
+Content-Type: text/html; charset=iso-8859-1
+</pre>
+
+<p>
+Следовательно, кодировка страницы — <b>ISO-8859-1</b>.
+</p>
+
+<img src="7.png">
+
+</body>
+</html>
