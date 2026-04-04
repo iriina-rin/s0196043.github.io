@@ -1,69 +1,132 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Анкета</title>
-<link rel="stylesheet" href="style.css">
-</head>
+<?php
+header('Content-Type: text/html; charset=UTF-8');
 
-<body>
+// Валидация данных
+$errors = [];
+$allowedLanguages = ['Pascal', 'C', 'C++', 'JavaScript', 'PHP', 'Python', 'Java', 'Haskel', 'Clojure', 'Prolog', 'Scala', 'Go'];
 
-<h1>Анкета</h1>
+// ФИО
+if (empty($_POST['fio'])) {
+    $errors['fio'] = 'Заполните ФИО.';
+} elseif (!preg_match('/^[а-яА-ЯёЁa-zA-Z\s]+$/u', $_POST['fio'])) {
+    $errors['fio'] = 'ФИО должно содержать только буквы и пробелы.';
+} elseif (mb_strlen($_POST['fio']) > 150) {
+    $errors['fio'] = 'ФИО должно быть не длиннее 150 символов.';
+}
 
-<form action="form.php" method="POST">
+// Телефон
+if (empty($_POST['phone'])) {
+    $errors['phone'] = 'Заполните телефон.';
+} elseif (!preg_match('/^\+?\d{10,15}$/', $_POST['phone'])) {
+    $errors['phone'] = 'Телефон должен содержать от 10 до 15 цифр.';
+}
 
-<p>ФИО</p>
-<input type="text" name="name">
+// Email
+if (empty($_POST['email'])) {
+    $errors['email'] = 'Заполните email.';
+} elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    $errors['email'] = 'Введите корректный email.';
+}
 
-<p>Телефон</p>
-<input type="tel" name="phone">
+// Дата рождения
+if (empty($_POST['birthdate'])) {
+    $errors['birthdate'] = 'Заполните дату рождения.';
+} else {
+    $birthdate = DateTime::createFromFormat('Y-m-d', $_POST['birthdate']);
+    $today = new DateTime();
+    $minAge = new DateTime('-150 years');
+    
+    if (!$birthdate || $birthdate > $today || $birthdate < $minAge) {
+        $errors['birthdate'] = 'Введите корректную дату рождения.';
+    }
+}
 
-<p>Email</p>
-<input type="email" name="email">
+// Пол
+if (empty($_POST['gender'])) {
+    $errors['gender'] = 'Укажите пол.';
+} elseif (!in_array($_POST['gender'], ['male', 'female'])) {
+    $errors['gender'] = 'Выбран недопустимый пол.';
+}
 
-<p>Дата рождения</p>
-<input type="date" name="birthdate">
+// Языки программирования
+if (empty($_POST['languages'])) {
+    $errors['languages'] = 'Выберите хотя бы один язык программирования.';
+} else {
+    foreach ($_POST['languages'] as $lang) {
+        if (!in_array($lang, $allowedLanguages)) {
+            $errors['languages'] = 'Выбран недопустимый язык программирования.';
+            break;
+        }
+    }
+}
 
-<p>Пол</p>
+// Биография
+if (empty($_POST['bio'])) {
+    $errors['bio'] = 'Заполните биографию.';
+} elseif (strlen($_POST['bio']) > 5000) {
+    $errors['bio'] = 'Биография должна быть не длиннее 5000 символов.';
+}
 
-<input type="radio" name="gender" value="male"> Мужской
-<input type="radio" name="gender" value="female"> Женский
+// Контракт
+if (empty($_POST['contract'])) {
+    $errors['contract'] = 'Необходимо ознакомиться с контрактом.';
+}
 
-<p>Любимые языки программирования</p>
+if (!empty($errors)) {
+    include('form.html');
+    exit();
+}
 
-<select name="languages[]" multiple>
+// Подключение к базе данных
+$user = 'u68775'; // Заменить на ваш логин
+$pass = '7631071'; // Заменить на ваш пароль
+$dbname = 'u68775'; // Заменить на ваш логин (имя БД)
 
-<option value="1">Pascal</option>
-<option value="2">C</option>
-<option value="3">C++</option>
-<option value="4">JavaScript</option>
-<option value="5">PHP</option>
-<option value="6">Python</option>
-<option value="7">Java</option>
-<option value="8">Haskell</option>
-<option value="9">Clojure</option>
-<option value="10">Prolog</option>
-<option value="11">Scala</option>
-<option value="12">Go</option>
+try {
+    $db = new PDO("mysql:host=localhost;dbname=$dbname", $user, $pass, [
+        PDO::ATTR_PERSISTENT => true,
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
 
-</select>
+    // Начало транзакции
+    $db->beginTransaction();
 
-<p>Биография</p>
+    // Вставка основной информации
+    $stmt = $db->prepare("INSERT INTO applications (fio, phone, email, birthdate, gender, bio, contract_agreed) 
+                          VALUES (:fio, :phone, :email, :birthdate, :gender, :bio, :contract)");
+    $stmt->execute([
+        ':fio' => $_POST['fio'],
+        ':phone' => $_POST['phone'],
+        ':email' => $_POST['email'],
+        ':birthdate' => $_POST['birthdate'],
+        ':gender' => $_POST['gender'],
+        ':bio' => $_POST['bio'],
+        ':contract' => isset($_POST['contract']) ? 1 : 0
+    ]);
 
-<textarea name="bio"></textarea>
+    // Получаем ID последней вставленной записи
+    $applicationId = $db->lastInsertId();
 
-<br><br>
+    // Вставка языков программирования
+    $stmt = $db->prepare("INSERT INTO application_languages (application_id, language) VALUES (:app_id, :lang)");
+    foreach ($_POST['languages'] as $lang) {
+        $stmt->execute([
+            ':app_id' => $applicationId,
+            ':lang' => $lang
+        ]);
+    }
 
-<label>
-<input type="checkbox" name="contract">
-С контрактом ознакомлен
-</label>
+    // Завершение транзакции
+    $db->commit();
 
-<br><br>
-
-<button type="submit">Сохранить</button>
-
-</form>
-
-</body>
-</html>
+    // Перенаправление с сообщением об успехе
+    header('Location: form.php?save=1');
+    exit();
+} catch (PDOException $e) {
+    // Откат транзакции в случае ошибки
+    if (isset($db) && $db->inTransaction()) {
+        $db->rollBack();
+    }
+    print('Ошибка: ' . $e->getMessage());
+    exit();
+}
