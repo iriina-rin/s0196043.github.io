@@ -117,9 +117,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Подключение к БД
-    $user = 'u68775';
-    $pass = '7631071';
-    $dbname = 'u68775';
+    $user = 'u82815';
+    $pass = '3583398';
+    $dbname = 'u82815';
     try {
         $db = new PDO("mysql:host=localhost;dbname=$dbname", $user, $pass, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
