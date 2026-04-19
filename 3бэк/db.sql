@@ -36,3 +36,4 @@ CREATE TABLE application_languages (
     FOREIGN KEY (language_id) REFERENCES programming_languages(id) ON DELETE CASCADE,
     UNIQUE KEY (application_id, language_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    
