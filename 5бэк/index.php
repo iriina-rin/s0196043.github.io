@@ -30,7 +30,7 @@ function setErrorCookie($name, $message) {
 }
 
 // Подключение к БД
-$db = new PDO("mysql:host=localhost;dbname=u68775", 'u68775', '7631071', [
+$db = new PDO("mysql:host=localhost;dbname=u82815", 'u82815', '3583398', [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 ]);
 // Очистка ошибок при первом заходе
