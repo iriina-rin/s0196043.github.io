@@ -28,7 +28,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 // =============================================
 
 try {
-    $db = new PDO("mysql:host=localhost;dbname=u68775", 'u68775', '7631071', [
+    $db = new PDO("mysql:host=localhost;dbname=u82815", 'u82815', '3583398', [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"
