@@ -8,7 +8,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // Подключение к БД
-$db = new PDO("mysql:host=localhost;dbname=u82815", 'u82815', '3583398', [
+$db = new PDO("mysql:host=localhost;dbname=u82389", 'u82389', '3736104', [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 ]);
 
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = trim($_POST['password']);
 
     // Отладочная информация
-    $debug_info .= "Попытка входа: login='$login', password='$password'\n";
+    $debug_info .= "Попытка входа: login='$login'\n";
 
     try {
         // Ищем пользователя в БД
@@ -36,19 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Проверяем пароль
             if (password_verify($password, $user['password_hash'])) {
                 $_SESSION['user_id'] = $user['id'];
-                $debug_info .= "Пароль верный, авторизация успешна\n";
+                $debug_info .= "Авторизация прошла успешно\n";
 
                 // Перенаправляем после успешного входа
                 header('Location: index.php');
                 exit();
             } else {
-                $debug_info .= "Ошибка: пароль не совпадает\n";
-                $error = 'Неверный пароль';
+                $debug_info .= "Ошибка: неверные учетные данные\n";
+                $error = 'Неверный логин или пароль';
             }
-        } else {
-            $debug_info .= "Ошибка: пользователь не найден\n";
-            $error = 'Пользователь с таким логином не существует';
-        }
+        } 
     } catch (PDOException $e) {
         $error = 'Ошибка базы данных';
         $debug_info .= "Ошибка БД: " . $e->getMessage() . "\n";
@@ -64,11 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Вход в систему</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -77,17 +73,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             height: 100vh;
         }
         .login-container {
-            background: white;
+            background-color: #FFEBEE;
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 400px;
         }
-        h1 {
+        h2 {
             text-align: center;
             margin-bottom: 25px;
-            color: #333;
         }
         .form-group {
             margin-bottom: 20px;
@@ -96,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
-            color: #555;
         }
         input[type="text"],
         input[type="password"] {
@@ -109,24 +102,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         button {
             width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #45a049;
         }
         .error {
-            color: #d32f2f;
+            border: 2px solid red;
+            border-radius: 4px;
+            color: red;
             margin: 15px 0;
             padding: 10px;
-            background-color: #fce4e4;
-            border-radius: 4px;
             text-align: center;
         }
         .register-link {
@@ -134,7 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-top: 20px;
         }
         .register-link a {
-            color: #1976d2;
             text-decoration: none;
         }
         .register-link a:hover {
@@ -144,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
     <div class="login-container">
-        <h1>Вход в систему</h1>
+        <h2>Вход в систему</h2>
 
         <?php if ($error): ?>
             <div class="error"><?= htmlspecialchars($error) ?></div>
@@ -161,11 +142,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="password" id="password" name="password" required>
             </div>
 
-            <button type="submit">Войти</button>
+            <button type="submit" class="btn btn-primary">Войти</button>
         </form>
 
         <div class="register-link">
             Нет аккаунта? <a href="register.php">Зарегистрируйтесь</a>
+        </div>
+        <div class="register-link">
+            <a href="admin_logout.php">Войти как администратор</a>
         </div>
     </div>
 </body>
