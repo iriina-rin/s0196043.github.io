@@ -15,7 +15,7 @@ try {
 // Вспомогательная функция для проверки прав администратора
 function isAdmin($pdo) {
     if (!isset($_SERVER['PHP_AUTH_USER'])) return false;
-    $stmt = $pdo->prepare("SELECT password_hash FROM admins WHERE login = ?");
+    $stmt = $pdo->prepare("SELECT password_hash FROM admin_users WHERE username = ?");
     $stmt->execute([$_SERVER['PHP_AUTH_USER']]);
     $admin = $stmt->fetch();
     return $admin && password_verify($_SERVER['PHP_AUTH_PW'], $admin['password_hash']);
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     // Сбор ошибок из кук
     $errors = array();
-    $fields = array('fio', 'phone', 'email', 'birth_date', 'gender', 'languages', 'bio', 'contract');
+    $fields = array('fio', 'phone', 'email', 'birthdate', 'gender', 'languages', 'bio', 'contract_agreed');
     foreach ($fields as $field) {
         $errors[$field] = !empty($_COOKIE[$field . '_error']);
         if ($errors[$field]) {
@@ -79,12 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $values['fio'] = $row['fio'];
             $values['phone'] = $row['phone_number'];
             $values['email'] = $row['email'];
-            $values['birth_date'] = $row['birth_date'];
+            $values['birthdate'] = $row['birthdate'];
             $values['gender'] = $row['sex'];
             $values['bio'] = $row['biography'];
-            $values['contract'] = 1;
+            $values['contract_agreed'] = 1;
             
-            $stmt = $pdo->prepare("SELECT l.lang_name FROM languages l JOIN record_langs rl ON l.lang_id = rl.lang_id WHERE rl.id = ?");
+            $stmt = $pdo->prepare("SELECT l.name FROM programming_languages l JOIN application_languages rl ON l.id = rl.id WHERE rl.id = ?");
             $stmt->execute([$target_id]);
             $values['languages'] = $stmt->fetchAll(PDO::FETCH_COLUMN);
         }
@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 else {
     // 1. Обработка авторизации (если нажата кнопка входа)
     if (isset($_POST['auth_submit'])) {
-        $stmt = $pdo->prepare("SELECT id, pass FROM application WHERE login = ?");
+        $stmt = $pdo->prepare("SELECT id, password_hash FROM application WHERE login = ?");
         $stmt->execute([$_POST['auth_login']]);
         $user = $stmt->fetch();
         if ($user && password_verify($_POST['auth_pass'], $user['pass'])) {
@@ -134,10 +134,10 @@ else {
 
     if ($edit_id) {
         // ОБНОВЛЕНИЕ существующей записи
-        $stmt = $pdo->prepare("UPDATE application SET fio=?, phone_number=?, email=?, birth_date=?, sex=?, biography=? WHERE id=?");
-        $stmt->execute([$_POST['fio'], $_POST['phone'], $_POST['email'], $_POST['birth_date'], $_POST['gender'], $_POST['bio'], $edit_id]);
+        $stmt = $pdo->prepare("UPDATE applications SET fio=?, phone=?, email=?, birthdate=?, gender=?, biography=? WHERE id=?");
+        $stmt->execute([$_POST['fio'], $_POST['phone'], $_POST['email'], $_POST['birthdate'], $_POST['gender'], $_POST['bio'], $edit_id]);
         
-        $pdo->prepare("DELETE FROM record_langs WHERE id=?")->execute([$edit_id]);
+        $pdo->prepare("DELETE FROM application_languages WHERE id=?")->execute([$edit_id]);
     } else {
         // СОЗДАНИЕ новой записи
         $login = 'user' . rand(1000, 9999);
@@ -147,17 +147,17 @@ else {
         $_SESSION['generated_login'] = $login;
         $_SESSION['generated_pass'] = $pass;
 
-        $stmt = $pdo->prepare("INSERT INTO application (fio, phone_number, email, birth_date, sex, biography, login, pass) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$_POST['fio'], $_POST['phone'], $_POST['email'], $_POST['birth_date'], $_POST['gender'], $_POST['bio'], $login, $pass_hash]);
+        $stmt = $pdo->prepare("INSERT INTO applications (fio, phone, email, birthdate, gender, biography, login, password_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$_POST['fio'], $_POST['phone'], $_POST['email'], $_POST['birthdate'], $_POST['gender'], $_POST['bio'], $login, $pass_hash]);
         $edit_id = $pdo->lastInsertId();
     }
 
     // Сохранение языков программирования
     foreach ($_POST['languages'] as $lang) {
-        $l_stmt = $pdo->prepare("SELECT lang_id FROM languages WHERE lang_name = ?");
+        $l_stmt = $pdo->prepare("SELECT id FROM programming_languages WHERE name = ?");
         $l_stmt->execute([$lang]);
         $l_id = $l_stmt->fetchColumn();
-        $pdo->prepare("INSERT INTO record_langs (id, lang_id) VALUES (?, ?)")->execute([$edit_id, $l_id]);
+        $pdo->prepare("INSERT INTO application_languages (application_id, language_id) VALUES (?, ?)")->execute([$edit_id, $l_id]);
     }
 
     // Очистка кук данных после успешного сохранения
