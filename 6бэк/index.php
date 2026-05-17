@@ -29,6 +29,24 @@ function setErrorCookie($name, $message) {
     setcookie("error_$name", $message, 0, '/');
 }
 
+// Функция для получения значения поля (приоритет: БД -> COOKIE -> пустая строка)
+function getFieldValue($fieldName, $userData, $dbFieldName = null) {
+    $dbField = $dbFieldName ?: $fieldName;
+    
+    // 1. Сначала проверяем COOKIE (новые данные из формы с ошибкой)
+    if (isset($_COOKIE["form_$fieldName"])) {
+        return htmlspecialchars($_COOKIE["form_$fieldName"]);
+    }
+    
+    // 2. Затем данные из БД (уже сохраненные)
+    if ($userData && isset($userData[$dbField]) && $userData[$dbField] !== null) {
+        return htmlspecialchars($userData[$dbField]);
+    }
+    
+    // 3. Иначе пустая строка
+    return '';
+}
+
 // Подключение к БД
 $db = new PDO("mysql:host=localhost;dbname=u82815", 'u82815', '3583398', [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
@@ -41,7 +59,7 @@ if (!isset($_GET['form_submitted'])) {
         }
     }
 }
-
+// Загрузка данных пользователя
 $stmt = $db->prepare("SELECT * FROM applications WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $userData = $stmt->fetch();
@@ -52,6 +70,7 @@ $langStmt = $db->prepare("SELECT pl.name FROM application_languages al
                          WHERE al.application_id = ?");
 $langStmt->execute([$_SESSION['user_id']]);
 $userLanguages = $langStmt->fetchAll(PDO::FETCH_COLUMN);
+
 // Обработка отправки формы
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors = [];
@@ -187,355 +206,136 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Анкета</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #4361ee;
-            --primary-dark: #3a56d4;
-            --danger: #f72585;
-            --success: #4cc9f0;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --border-radius: 8px;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+    <title> Задание 5 </title>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="basecss.css" type="text/css"/>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            color: var(--dark);
-            line-height: 1.6;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: var(--primary);
-            font-size: 28px;
-        }
-
-        .logout-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: var(--danger);
-            color: white;
-            padding: 8px 16px;
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .logout-btn:hover {
-            background-color: #d1146d;
-            transform: translateY(-2px);
-        }
-
-        .alert {
-            padding: 12px 16px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .alert.success {
-            background-color: rgba(76, 201, 240, 0.2);
-            border-left: 4px solid var(--success);
-            color: #0a6c83;
-        }
-
-        .alert.error {
-            background-color: rgba(247, 37, 133, 0.2);
-            border-left: 4px solid var(--danger);
-            color: #a11a56;
-        }
-
-        form {
-            background: white;
-            padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-group input[type="text"],
-        .form-group input[type="tel"],
-        .form-group input[type="email"],
-        .form-group input[type="date"],
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
-        }
-
-        .error-field {
-            border-color: var(--danger) !important;
-        }
-
-        .error {
-            color: var(--danger);
-            font-size: 14px;
-            margin-top: 5px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .radio-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .radio-group input[type="radio"] {
-            margin-right: 10px;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            margin-right: 10px;
-        }
-
-        select[multiple] {
-            height: auto;
-            min-height: 120px;
-            padding: 8px !important;
-        }
-
-        textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        .submit-btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            form {
-                padding: 20px;
-            }
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-user-edit"></i> Анкета</h1>
-            <a href="logout.php" class="logout-btn">
-                <i class="fas fa-sign-out-alt"></i> Выйти
-            </a>
-        </header>
-
-        <?php if (isset($_GET['success'])): ?>
-            <div class="alert success">
-                <i class="fas fa-check-circle"></i> Данные успешно сохранены!
-            </div>
-        <?php endif; ?>
-
+    <div class="highlighted container">
+            <header>
+                <h3> Анкета </h3>
+                <a href="logout.php" class="btn btn-primary">
+                    Выйти
+                </a>
+            </header>
         <?php if (isset($_COOKIE['error_db'])): ?>
             <div class="alert error">
-                <i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($_COOKIE['error_db']) ?>
+                <?= htmlspecialchars($_COOKIE['error_db']) ?>
             </div>
         <?php endif; ?>
-
         <form method="POST">
-           <!-- ФИО -->
-<div class="form-group">
-    <label for="fio">ФИО:</label>
-    <input type="text" id="fio" name="fio"
-           value="<?= isset($_COOKIE['form_fio']) ? htmlspecialchars($_COOKIE['form_fio']) : (isset($userData['fio']) ? htmlspecialchars($userData['fio']) : '') ?>"
-           class="<?= isset($_COOKIE['error_fio']) ? 'error-field' : '' ?>">
-    <?php if (isset($_COOKIE['error_fio'])): ?>
-        <div class="error">
-            <i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($_COOKIE['error_fio']) ?>
-        </div>
-    <?php endif; ?>
-</div>
+            <div class="mb-3">
+                <label for="fio" class="form-label">ФИО:</label> 
+                <input class="form-control" id="fio" aria-describedby="format" name="fio" type="text"
+                    value="<?= getFieldValue('fio', $userData, 'fio') ?>"
+                    class="<?= isset($_COOKIE['error_fio']) ? 'error-field' : '' ?>">
+                <?php if (isset($_COOKIE['error_fio'])): ?>
+                    <div class="error"><?= htmlspecialchars($_COOKIE['error_fio']) ?></div>
+                <?php endif; ?>
+            </div>  
 
-<!-- Телефон -->
-<div class="form-group">
-    <label for="phone">Телефон:</label>
-    <input type="tel" id="phone" name="phone"
-           value="<?= isset($_COOKIE['form_phone']) ? htmlspecialchars($_COOKIE['form_phone']) : (isset($userData['phone']) ? htmlspecialchars($userData['phone']) : '') ?>"
-           class="<?= isset($_COOKIE['error_phone']) ? 'error-field' : '' ?>">
-    <?php if (isset($_COOKIE['error_phone'])): ?>
-        <div class="error">
-            <i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($_COOKIE['error_phone']) ?>
-        </div>
-    <?php endif; ?>
-</div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Номер телефона:</label>
+                <input class="form-control" id="phone" aria-describedby="format" name="phone" type="tel"
+                    value="<?= getFieldValue('phone', $userData, 'phone') ?>"
+                    class="<?= isset($_COOKIE['error_phone']) ? 'error-field' : '' ?>">
+                <?php if (isset($_COOKIE['error_phone'])): ?>
+                    <div class="error"><?= htmlspecialchars($_COOKIE['error_phone']) ?></div>
+                <?php endif; ?>
+            </div>
 
-<!-- Email -->
-<div class="form-group">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email"
-           value="<?= isset($_COOKIE['form_email']) ? htmlspecialchars($_COOKIE['form_email']) : (isset($userData['email']) ? htmlspecialchars($userData['email']) : '') ?>"
-           class="<?= isset($_COOKIE['error_email']) ? 'error-field' : '' ?>">
-    <?php if (isset($_COOKIE['error_email'])): ?>
-        <div class="error">
-            <i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($_COOKIE['error_email']) ?>
-        </div>
-    <?php endif; ?>
-</div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input class="form-control" id="email" name="email" type="email" 
+                    value="<?= getFieldValue('email', $userData, 'email') ?>"
+                    class="<?= isset($_COOKIE['error_email']) ? 'error-field' : '' ?>">
+                <?php if (isset($_COOKIE['error_email'])): ?>
+                    <div class="error"><?= htmlspecialchars($_COOKIE['error_email']) ?></div>
+                <?php endif; ?>
+            </div>
 
-<!-- Дата рождения -->
-<div class="form-group">
-    <label for="birthdate">Дата рождения:</label>
-    <input type="date" id="birthdate" name="birthdate"
-           value="<?= isset($_COOKIE['form_birthdate']) ? htmlspecialchars($_COOKIE['form_birthdate']) : (isset($userData['birthdate']) ? htmlspecialchars($userData['birthdate']) : '') ?>"
-           class="<?= isset($_COOKIE['error_birthdate']) ? 'error-field' : '' ?>">
-    <?php if (isset($_COOKIE['error_birthdate'])): ?>
-        <div class="error">
-            <i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($_COOKIE['error_birthdate']) ?>
-        </div>
-    <?php endif; ?>
-</div>
+            <div class="mb-3">
+                <label for="birthdate">Дата рождения:</label>
+                <input name="birthdate" type="date" class="form-control" id="birthdate"
+                    value="<?= getFieldValue('birthdate', $userData, 'birthdate') ?>"
+                    class="<?= isset($_COOKIE['error_birthdate']) ? 'error-field' : '' ?>">
+                <?php if (isset($_COOKIE['error_birthdate'])): ?>
+                    <div class="error"><?= htmlspecialchars($_COOKIE['error_birthdate']) ?></div>
+                <?php endif; ?>
+            </div>
 
-<!-- Пол -->
-<div class="form-group">
-    <label>Пол:</label>
-    <div class="radio-group">
-        <input type="radio" id="male" name="gender" value="male"
-               <?= ((isset($_COOKIE['form_gender']) && $_COOKIE['form_gender'] == 'male') || (isset($userData['gender']) && $userData['gender'] == 'male')) ? 'checked' : '' ?>
-        <label for="male">Мужской</label>
-    </div>
-    <div class="radio-group">
-        <input type="radio" id="female" name="gender" value="female"
-               <?= ((isset($_COOKIE['form_gender']) && $_COOKIE['form_gender'] == 'female') || (isset($userData['gender']) && $userData['gender'] == 'female')) ? 'checked' : '' ?>
-        <label for="female">Женский</label>
-    </div>
-    <?php if (isset($_COOKIE['error_gender'])): ?>
-        <div class="error">
-            <i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($_COOKIE['error_gender']) ?>
-        </div>
-    <?php endif; ?>
-</div>
+            <div class="mb-3">Пол:
+                <div class="form-check">
+                    <?php $genderValue = getFieldValue('gender', $userData, 'gender'); ?>
+                    <input class="form-check-input" type="radio" name="gender" id="male" value="male" <?= ($genderValue == 'male') ? 'checked' : '' ?>>
+                    <label class="form-check-label" for="male">Мужской</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="female" value="female" <?= ($genderValue == 'female') ? 'checked' : '' ?>>
+                    <label class="form-check-label" for="female">Женский</label>  
+                </div>
+                <?php if (isset($_COOKIE['error_gender'])): ?>
+                    <div class="error"><?= htmlspecialchars($_COOKIE['error_gender']) ?></div>
+                <?php endif; ?>
+            </div>
 
-<!-- Языки программирования -->
-<div class="form-group">
-    <label for="languages">Любимые языки программирования:</label>
-    <select id="languages" name="languages[]" multiple size="5"
-            class="<?= isset($_COOKIE['error_languages']) ? 'error-field' : '' ?>">
-        <?php
-        $options = ['Pascal', 'C', 'C++', 'JavaScript', 'PHP', 'Python', 'Java', 'Haskel', 'Clojure', 'Prolog', 'Scala', 'Go'];
-        $selectedLangs = isset($_COOKIE['form_languages']) ? explode(',', $_COOKIE['form_languages']) : (isset($userLanguages) ? $userLanguages : []);
+            <div class="mb-3">
+                <label for="languages" class="form-label">Любимый язык программирования:</label>
+                <select id="languages" name="languages[]" multiple size="5" class="form-select"
+                    class="<?= isset($_COOKIE['error_languages']) ? 'error-field' : '' ?>">
+                    <?php
+                        $options = ['Pascal', 'C', 'C++', 'JavaScript', 'PHP', 'Python', 'Java', 'Haskel', 'Clojure', 'Prolog', 'Scala', 'Go'];
+                        
+                        // Приоритет: COOKIE > БД
+                        $selectedLangs = [];
+                        if (isset($_COOKIE['form_languages']) && !empty($_COOKIE['form_languages'])) {
+                            $selectedLangs = explode(',', $_COOKIE['form_languages']);
+                        } elseif ($userLanguages && !empty($userLanguages)) {
+                            $selectedLangs = $userLanguages;
+                        }
+                        
+                        foreach ($options as $lang): ?>
+                            <option value="<?= $lang ?>" <?= in_array($lang, $selectedLangs) ? 'selected' : '' ?>>
+                                <?= $lang ?>
+                            </option>
+                    <?php endforeach; ?>
+                </select>
+                <?php if (isset($_COOKIE['error_languages'])): ?>
+                    <div class="error"><?= htmlspecialchars($_COOKIE['error_languages']) ?></div>
+                <?php endif; ?>
+            </div>
 
-        foreach ($options as $lang): ?>
-            <option value="<?= $lang ?>" <?= in_array($lang, $selectedLangs) ? 'selected' : '' ?>>
-                <?= $lang ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-    <?php if (isset($_COOKIE['error_languages'])): ?>
-        <div class="error">
-            <i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($_COOKIE['error_languages']) ?>
-        </div>
-    <?php endif; ?>
-</div>
+            <div class="mb-3">Биография:
+                <div class="form-floating">
+                    <textarea class="form-control" id="bio" name="bio" class="<?= isset($_COOKIE['error_bio']) ? 'error-field' : '' ?>"><?= 
+        getFieldValue('bio', $userData, 'bio') 
+    ?></textarea>
+                    <?php if (isset($_COOKIE['error_bio'])): ?>
+                        <div class="error"><?= htmlspecialchars($_COOKIE['error_bio']) ?></div>
+                    <?php endif; ?>
+                </div>
+            </div>
 
-<!-- Биография -->
-<div class="form-group">
-    <label for="bio">Биография:</label>
-    <textarea id="bio" name="bio"
-              class="<?= isset($_COOKIE['error_bio']) ? 'error-field' : '' ?>"><?=
-              isset($_COOKIE['form_bio']) ? htmlspecialchars($_COOKIE['form_bio']) : (isset($userData['bio']) ? htmlspecialchars($userData['bio']) : '') ?></textarea>
-    <?php if (isset($_COOKIE['error_bio'])): ?>
-        <div class="error">
-            <i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($_COOKIE['error_bio']) ?>
-        </div>
-    <?php endif; ?>
-</div>
+            <div class="mb-3">
+                <?php $contractValue = getFieldValue('contract', $userData, 'contract_agreed'); ?>
+                <input type="checkbox" class="form-check-input" name="contract" id="contract"value="1"
+                       <?= ($contractValue == '1' || $contractValue == 1) ? 'checked' : '' ?>>
+                <label class="form-check-label" for="contract">С контрактом ознакомлен(-а)</label>
+                <?php if (isset($_COOKIE['error_contract'])): ?>
+                    <div class="error"><?= htmlspecialchars($_COOKIE['error_contract']) ?></div>
+                <?php endif; ?>
+            </div>
 
-<div class="checkbox-group">
-    <input type="checkbox" id="contract" name="contract" value="1"
-        <?php
-        $is_checked = false;
-
-        // Проверяем куки
-        if (isset($_COOKIE['form_contract']) && $_COOKIE['form_contract'] == '1') {
-            $is_checked = true;
-        }
-        // Проверяем данные из БД
-        elseif (isset($userData['contract_agreed']) && $userData['contract_agreed'] == 1) {
-            $is_checked = true;
-        }
-
-        // Выводим атрибут checked если нужно
-        echo $is_checked ? 'checked' : '';
-        ?>>
-    <label for="contract">Согласен на обработку данных</label>
-</div>
-</div>
-
-            <button type="submit" class="submit-btn">
-                <i class="fas fa-save"></i> Сохранить данные
-            </button>
-        </form>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <?php if (isset($_GET['success'])): ?>
+                <div class="success-mes">Спасибо, данные сохранены.</div>
+            <?php endif; ?>
+        </form> 
     </div>
 </body>
 </html>
