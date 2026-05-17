@@ -14,6 +14,7 @@ if ($isFirstVisit) {
         }
     }
 }
+
 // Редирект если не авторизован
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
