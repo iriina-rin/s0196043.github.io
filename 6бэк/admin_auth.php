@@ -1,6 +1,6 @@
 <?php
 // Подключение к БД для проверки учетных данных администратора
-$db = new PDO("mysql:host=localhost;dbname=u82389", 'u82389', '3736104', [
+$db = new PDO("mysql:host=localhost;dbname=u82815", 'u82815', '3583398', [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 ]);
 
