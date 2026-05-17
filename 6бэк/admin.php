@@ -6,6 +6,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     die("Требуется авторизация");
 }
 
+
 // 1. Подключение к БД
 $db = new PDO("mysql:host=localhost;dbname=u82815", 'u82815', '3583398', [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
