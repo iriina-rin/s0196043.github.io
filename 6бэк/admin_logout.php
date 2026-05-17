@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $attempts < 5) {
     if ($admin) {
         // Проверка пароля с подробным логированием
         if (password_verify($password, $admin['password_hash'])) {
+            session_regenerate_id(true);
             $_SESSION['admin_logged_in'] = true;
             $_SESSION['admin_username'] = $username;
             $_SESSION['login_attempts'] = 0;
@@ -58,81 +59,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $attempts < 5) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Вход в панель администратора</title>
     <style>
-        :root {
-            --primary: #4361ee;
-            --error: #f72585;
-            --background: #f8f9fa;
-        }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--background);
+            margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
         }
         .login-container {
-            background: white;
-            padding: 2rem;
+            background-color: #FFEBEE;
+            padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
         }
-        h1 {
+        h2 {
             text-align: center;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
+            margin-bottom: 25px;
         }
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 20px;
         }
         label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
+            margin-bottom: 8px;
+            font-weight: bold;
         }
-        input {
+        input[type="text"],
+        input[type="password"] {
             width: 100%;
-            padding: 0.75rem;
+            padding: 12px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            font-size: 1rem;
+            font-size: 16px;
+            box-sizing: border-box;
         }
         button {
             width: 100%;
-            padding: 0.75rem;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-        button:hover {
-            background-color: #3a56d4;
         }
         .error {
-            color: var(--error);
-            margin: 1rem 0;
-            padding: 0.75rem;
-            background-color: rgba(247, 37, 133, 0.1);
+            border: 2px solid red;
             border-radius: 4px;
-        }
-        .attempts-warning {
-            color: #ff6b35;
+            color: red;
+            margin: 15px 0;
+            padding: 10px;
             text-align: center;
-            margin-top: 1rem;
+        }
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .register-link a {
+            text-decoration: none;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h1><i class="fas fa-lock"></i> Вход администратора</h1>
+        <h2><i class="fas fa-lock"></i> Вход администратора</h2>
 
         <?php if ($error): ?>
             <div class="error">
@@ -162,12 +153,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $attempts < 5) {
                     <input type="password" id="password" name="password" required>
                 </div>
 
-                <button type="submit">
+                <button type="submit" class="btn btn-primary">
                     <i class="fas fa-sign-in-alt"></i> Войти
                 </button>
             </form>
         <?php endif; ?>
 
+        <div class="register-link">
+            <a href="login.php">Войти как пользователь</a>
+        </div>
+        
         <!-- Ссылка для экстренного сброса (должна быть удалена в продакшене) -->
         <?php if (isset($_GET['debug'])): ?>
             <div style="margin-top: 2rem; text-align: center; font-size: 0.8rem;">
