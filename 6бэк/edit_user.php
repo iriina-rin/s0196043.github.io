@@ -3,7 +3,7 @@
 require_once 'admin_auth.php';
 
 // Подключение к БД
-$db = new PDO("mysql:host=localhost;dbname=u82815", 'u82815', '3583398', [
+$db = new PDO("mysql:host=localhost;dbname=u82389", 'u82389', '3736104', [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 ]);
 
@@ -76,32 +76,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Редактирование пользователя</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
+        .container{
+            width: 75%;
             padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 800px;
             margin: 0 auto;
-            background: white;
-            padding: 20px;
+            margin-top: 50px;
+            margin-bottom: 50px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        h1 {
-            color: #333;
-        }
+        .highlighted {
+            background-color: #FFEBEE;
+        } 
         .form-group {
-            margin-bottom: 15px;
+            margin: 10px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         label {
             display: block;
             margin-bottom: 5px;
-            font-weight: bold;
         }
         input[type="text"],
         input[type="tel"],
@@ -121,26 +120,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             height: auto;
             min-height: 150px;
         }
-        .btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #4361ee;
-            color: white;
+        a {
             text-decoration: none;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
         }
-        .btn:hover {
-            background-color: #3a56d4;
+        .admin-btn{
+            margin-right: 10px;
+        }
+         header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        } 
+        .admin-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Редактирование пользователя #<?= $userId ?></h1>
-        <a href="admin.php">Назад к списку</a>
-
+    <div class="container highlighted">
+        <header>
+            <h2>Редактирование пользователя #<?= $userId ?></h2>
+             <a href="admin.php" class="admin-btn">
+                <button type="submit" class="btn btn-primary">Назад к списку</button>
+            </a>
+        </header>
         <form method="POST">
             <div class="form-group">
                 <label for="fio">ФИО:</label>
@@ -197,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="contract" style="display: inline;">Согласие на обработку данных</label>
             </div>
 
-            <button type="submit" class="btn">Сохранить изменения</button>
+            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
         </form>
     </div>
 </body>
