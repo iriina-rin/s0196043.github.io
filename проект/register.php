@@ -3,9 +3,9 @@ session_start();
 
 // Настройки базы данных
 $db_host = 'localhost';
-$db_name = 'u68775';
-$db_user = 'u68775';
-$db_pass = '7631071';
+$db_name = 'u82815';
+$db_user = 'u82815';
+$db_pass = '3583398';
 
 // Подключение к БД
 try {
