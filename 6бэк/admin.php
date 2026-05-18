@@ -9,7 +9,7 @@ function authenticate($pdo) {
         return false;
     }
 
-    $stmt = $pdo->prepare("SELECT password_hash FROM admin_users WHERE username = ?");
+    $stmt = $pdo->prepare("SELECT password_hash FROM admins WHERE login = ?");
     $stmt->execute([$_SERVER['PHP_AUTH_USER']]);
     $admin = $stmt->fetch();
 
@@ -31,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['delete_id'])) {
         // Удаление пользователя и его связей
         $id = intval($_POST['delete_id']);
-        $pdo->prepare("DELETE FROM application_languages WHERE id = ?")->execute([$id]);
-        $pdo->prepare("DELETE FROM applications WHERE id = ?")->execute([$id]);
+        $pdo->prepare("DELETE FROM record_langs WHERE id = ?")->execute([$id]);
+        $pdo->prepare("DELETE FROM application WHERE id = ?")->execute([$id]);
         header('Location: admin.php?msg=deleted');
         exit();
     }
@@ -40,15 +40,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // 4. Получение статистики
 $stats_stmt = $pdo->query("
-    SELECT l.name, COUNT(rl.id) as count 
-    FROM programming_languages l 
-    LEFT JOIN application_programming rl ON l.id = rl.lang_id 
-    GROUP BY l.name
+    SELECT l.lang_name, COUNT(rl.id) as count 
+    FROM languages l 
+    LEFT JOIN record_langs rl ON l.lang_id = rl.lang_id 
+    GROUP BY l.lang_name
 ");
 $stats = $stats_stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // 5. Получение всех данных пользователей
-$users_stmt = $pdo->query("SELECT * FROM applications");
+$users_stmt = $pdo->query("SELECT * FROM application");
 $users = $users_stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
