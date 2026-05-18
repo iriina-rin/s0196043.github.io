@@ -13,7 +13,7 @@
             padding: 20px;
             background: #f5f5f5;
         }
-        h1 { color: #333; }
+        h1 { color: #000; }
         label { 
             display: block; 
             margin: 15px 0 5px; 
